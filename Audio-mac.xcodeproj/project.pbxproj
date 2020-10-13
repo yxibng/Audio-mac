@@ -12,6 +12,15 @@
 		8678C1422535E7C5003DF95B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8678C1412535E7C5003DF95B /* Assets.xcassets */; };
 		8678C1452535E7C5003DF95B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8678C1432535E7C5003DF95B /* Main.storyboard */; };
 		8678C1482535E7C5003DF95B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C1472535E7C5003DF95B /* main.m */; };
+		8678C1542535E813003DF95B /* DbyAudioDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C1502535E813003DF95B /* DbyAudioDevice.m */; };
+		8678C1552535E813003DF95B /* RZAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C1522535E813003DF95B /* RZAudioRecorder.m */; };
+		8678C1592535E825003DF95B /* RZAudioUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C1572535E825003DF95B /* RZAudioUtil.m */; };
+		8678C15D2535EA02003DF95B /* TableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C15C2535EA02003DF95B /* TableCell.m */; };
+		8678C1612535EA1D003DF95B /* TableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8678C1602535EA1D003DF95B /* TableCell.xib */; };
+		8678C1672535ED77003DF95B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8678C1642535ED77003DF95B /* AudioToolbox.framework */; };
+		8678C1682535ED77003DF95B /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8678C1652535ED77003DF95B /* AudioUnit.framework */; };
+		8678C1692535ED77003DF95B /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8678C1662535ED77003DF95B /* CoreAudio.framework */; };
+		8678C16C2535ED96003DF95B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8678C16B2535ED96003DF95B /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +34,19 @@
 		8678C1462535E7C5003DF95B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8678C1472535E7C5003DF95B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8678C1492535E7C5003DF95B /* Audio_mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Audio_mac.entitlements; sourceTree = "<group>"; };
+		8678C1502535E813003DF95B /* DbyAudioDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DbyAudioDevice.m; sourceTree = "<group>"; };
+		8678C1512535E813003DF95B /* RZAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZAudioRecorder.h; sourceTree = "<group>"; };
+		8678C1522535E813003DF95B /* RZAudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZAudioRecorder.m; sourceTree = "<group>"; };
+		8678C1532535E813003DF95B /* DbyAudioDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DbyAudioDevice.h; sourceTree = "<group>"; };
+		8678C1572535E825003DF95B /* RZAudioUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZAudioUtil.m; sourceTree = "<group>"; };
+		8678C1582535E825003DF95B /* RZAudioUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZAudioUtil.h; sourceTree = "<group>"; };
+		8678C15B2535EA02003DF95B /* TableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableCell.h; sourceTree = "<group>"; };
+		8678C15C2535EA02003DF95B /* TableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableCell.m; sourceTree = "<group>"; };
+		8678C1602535EA1D003DF95B /* TableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableCell.xib; sourceTree = "<group>"; };
+		8678C1642535ED77003DF95B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		8678C1652535ED77003DF95B /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		8678C1662535ED77003DF95B /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		8678C16B2535ED96003DF95B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +54,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8678C16C2535ED96003DF95B /* AVFoundation.framework in Frameworks */,
+				8678C1692535ED77003DF95B /* CoreAudio.framework in Frameworks */,
+				8678C1672535ED77003DF95B /* AudioToolbox.framework in Frameworks */,
+				8678C1682535ED77003DF95B /* AudioUnit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +69,7 @@
 			children = (
 				8678C13A2535E7C5003DF95B /* Audio-mac */,
 				8678C1392535E7C5003DF95B /* Products */,
+				8678C1632535ED77003DF95B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,6 +88,15 @@
 				8678C13C2535E7C5003DF95B /* AppDelegate.m */,
 				8678C13E2535E7C5003DF95B /* ViewController.h */,
 				8678C13F2535E7C5003DF95B /* ViewController.m */,
+				8678C15B2535EA02003DF95B /* TableCell.h */,
+				8678C15C2535EA02003DF95B /* TableCell.m */,
+				8678C1602535EA1D003DF95B /* TableCell.xib */,
+				8678C1532535E813003DF95B /* DbyAudioDevice.h */,
+				8678C1502535E813003DF95B /* DbyAudioDevice.m */,
+				8678C1582535E825003DF95B /* RZAudioUtil.h */,
+				8678C1572535E825003DF95B /* RZAudioUtil.m */,
+				8678C1512535E813003DF95B /* RZAudioRecorder.h */,
+				8678C1522535E813003DF95B /* RZAudioRecorder.m */,
 				8678C1412535E7C5003DF95B /* Assets.xcassets */,
 				8678C1432535E7C5003DF95B /* Main.storyboard */,
 				8678C1462535E7C5003DF95B /* Info.plist */,
@@ -68,6 +104,17 @@
 				8678C1492535E7C5003DF95B /* Audio_mac.entitlements */,
 			);
 			path = "Audio-mac";
+			sourceTree = "<group>";
+		};
+		8678C1632535ED77003DF95B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8678C16B2535ED96003DF95B /* AVFoundation.framework */,
+				8678C1642535ED77003DF95B /* AudioToolbox.framework */,
+				8678C1652535ED77003DF95B /* AudioUnit.framework */,
+				8678C1662535ED77003DF95B /* CoreAudio.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,6 +174,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8678C1422535E7C5003DF95B /* Assets.xcassets in Resources */,
+				8678C1612535EA1D003DF95B /* TableCell.xib in Resources */,
 				8678C1452535E7C5003DF95B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,9 +186,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8678C1542535E813003DF95B /* DbyAudioDevice.m in Sources */,
 				8678C1402535E7C5003DF95B /* ViewController.m in Sources */,
 				8678C1482535E7C5003DF95B /* main.m in Sources */,
 				8678C13D2535E7C5003DF95B /* AppDelegate.m in Sources */,
+				8678C15D2535EA02003DF95B /* TableCell.m in Sources */,
+				8678C1592535E825003DF95B /* RZAudioUtil.m in Sources */,
+				8678C1552535E813003DF95B /* RZAudioRecorder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +334,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yxibng.Audio-mac";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -300,6 +353,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yxibng.Audio-mac";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
