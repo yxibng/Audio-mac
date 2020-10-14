@@ -28,13 +28,23 @@ OSStatus AudioUnitSetCurrentIOBufferFrameSize(AudioUnit inAUHAL,
 
 OSStatus AudioUnitGetCurrentIOBufferFrameSize(AudioUnit inAUHAL,
                                               UInt32 *outIOBufferFrameSize);
+
+//设置采集音量0-1.0，设置为 0 则为静音模式
+OSStatus SetInputVolumeForDevice(AudioObjectID inDeviceID, float volume);
+//获取采集音量0-1.0
+OSStatus GetInputVolumeForDevice(AudioObjectID inDeviceID, float *volume);
+
+//设置播放音量0-1.0，  设置为0 播放静音
+OSStatus SetOutputVolumeForDevice(AudioObjectID inDeviceID, float volume);
+//获取播放音量0-1.0
+OSStatus GetOutputVolumeForDevice(AudioObjectID inDeviceID, float *volume);
+
 #endif
 
 OSStatus AudioUnitSetMaxIOBufferFrameSize(AudioUnit inAUHAL,
                                           UInt32 inIOBufferFrameSize);
 OSStatus AudioUnitGetMaxIOBufferFrameSize(AudioUnit inAUHAL,
                                           UInt32 *outIOBufferFrameSize);
-
 
 
 @interface RZAudioUtil : NSObject

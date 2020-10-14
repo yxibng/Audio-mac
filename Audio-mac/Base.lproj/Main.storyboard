@@ -739,9 +739,8 @@
                                                             <rect key="frame" x="1" y="1" width="195" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vqJ-NJ-Nch">
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="vqJ-NJ-Nch">
                                                                     <rect key="frame" x="0.0" y="1" width="195" height="16"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="8nd-CW-I69">
                                                                         <font key="font" usesAppearanceFont="YES"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -749,6 +748,11 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="vqJ-NJ-Nch" firstAttribute="leading" secondItem="Nxz-wp-gV1" secondAttribute="leading" constant="2" id="q3j-jH-16B"/>
+                                                                <constraint firstItem="vqJ-NJ-Nch" firstAttribute="centerY" secondItem="Nxz-wp-gV1" secondAttribute="centerY" id="ufe-0h-vQ5"/>
+                                                                <constraint firstItem="vqJ-NJ-Nch" firstAttribute="centerX" secondItem="Nxz-wp-gV1" secondAttribute="centerX" id="x05-4E-c80"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <outlet property="textField" destination="vqJ-NJ-Nch" id="P4p-Nc-yiR"/>
                                                             </connections>
@@ -779,10 +783,10 @@
                                 </tableHeaderView>
                             </scrollView>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SyY-l0-6jg">
-                                <rect key="frame" x="403" y="108" width="57" height="54"/>
+                                <rect key="frame" x="360" y="95" width="100" height="81"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2ER-1l-E3d">
-                                        <rect key="frame" x="-6" y="26" width="69" height="32"/>
+                                        <rect key="frame" x="16" y="53" width="69" height="32"/>
                                         <buttonCell key="cell" type="push" title="start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="u9B-G8-uJ8">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -792,7 +796,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rYh-GD-NoY">
-                                        <rect key="frame" x="-5" y="-7" width="67" height="32"/>
+                                        <rect key="frame" x="17" y="20" width="67" height="32"/>
                                         <buttonCell key="cell" type="push" title="stop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="T7U-8A-feg">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -801,12 +805,24 @@
                                             <action selector="stopRecord:" target="XfG-lQ-9wD" id="aUw-0v-1Yi"/>
                                         </connections>
                                     </button>
+                                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YUa-zC-Dn5">
+                                        <rect key="frame" x="-2" y="-2" width="104" height="19"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="shg-iR-6Uq"/>
+                                        </constraints>
+                                        <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="Nda-PV-9S4"/>
+                                        <connections>
+                                            <action selector="sliderValueChange:" target="XfG-lQ-9wD" id="oCM-vF-aYH"/>
+                                        </connections>
+                                    </slider>
                                 </subviews>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
@@ -821,6 +837,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="sliderBar" destination="YUa-zC-Dn5" id="cUH-ry-C08"/>
                         <outlet property="tableView" destination="E6B-Kf-brE" id="bta-dN-cIY"/>
                     </connections>
                 </viewController>

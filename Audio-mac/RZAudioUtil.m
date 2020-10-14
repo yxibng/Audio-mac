@@ -84,6 +84,68 @@ OSStatus AudioUnitGetCurrentIOBufferFrameSize(AudioUnit inAUHAL,
                                 outIOBufferFrameSize, &theDataSize);
 }
 
+OSStatus SetInputVolumeForDevice(AudioObjectID inDeviceID, float volume) {
+    
+    AudioObjectPropertyAddress theAddress = {kAudioDevicePropertyVolumeScalar,
+                                                kAudioObjectPropertyScopeInput,
+                                             kAudioObjectPropertyElementMaster};
+    
+    return AudioObjectSetPropertyData(inDeviceID,
+                                      &theAddress,
+                                      0,
+                                      NULL,
+                                      sizeof(float),
+                                      &volume);
+
+}
+
+OSStatus GetInputVolumeForDevice(AudioObjectID inDeviceID, float *volume) {
+    
+    AudioObjectPropertyAddress theAddress = {
+        kAudioDevicePropertyVolumeScalar,
+        kAudioObjectPropertyScopeInput,
+        kAudioObjectPropertyElementMaster};
+
+    UInt32 theDataSize = sizeof(float);
+    return AudioObjectGetPropertyData(inDeviceID,
+                                      &theAddress,
+                                      0,
+                                      NULL,
+                                      &theDataSize,
+                                      volume);
+    
+}
+
+
+OSStatus SetOutputVolumeForDevice(AudioObjectID inDeviceID, float volume) {
+    AudioObjectPropertyAddress theAddress = {kAudioDevicePropertyVolumeScalar,
+                                                kAudioObjectPropertyScopeOutput,
+                                             kAudioObjectPropertyElementMaster};
+    
+    return AudioObjectSetPropertyData(inDeviceID,
+                                      &theAddress,
+                                      0,
+                                      NULL,
+                                      sizeof(float),
+                                      &volume);
+}
+OSStatus GetOutputVolumeForDevice(AudioObjectID inDeviceID, float *volume) {
+    
+    AudioObjectPropertyAddress theAddress = {
+        kAudioDevicePropertyVolumeScalar,
+        kAudioObjectPropertyScopeOutput,
+        kAudioObjectPropertyElementMaster};
+
+    UInt32 theDataSize = sizeof(float);
+    return AudioObjectGetPropertyData(inDeviceID,
+                                      &theAddress,
+                                      0,
+                                      NULL,
+                                      &theDataSize,
+                                      volume);
+}
+
+
 #endif
 
 OSStatus AudioUnitSetMaxIOBufferFrameSize(AudioUnit audioUnit,

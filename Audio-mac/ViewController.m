@@ -10,6 +10,8 @@
 #import "DbyAudioDevice.h"
 #import "RZAudioRecorder.h"
 
+#import "RZAudioUtil.h"
+
 static NSString *cellMark = @"TableCell";
 
 @interface ViewController ()<NSTableViewDelegate,NSTableViewDataSource, RZAudioRecorderDelegate>
@@ -17,7 +19,7 @@ static NSString *cellMark = @"TableCell";
 @property (weak) IBOutlet NSTableView *tableView;
 @property (nonatomic, strong) NSArray<DbyAudioDevice *> *devices;
 @property (nonatomic, strong) RZAudioRecorder *audioRecorder;
-
+@property (weak) IBOutlet NSSlider *sliderBar;
 
 
 
@@ -39,16 +41,33 @@ static NSString *cellMark = @"TableCell";
     _audioRecorder = [[RZAudioRecorder alloc] initWithConfig:config delegate:self];
     
     
-    
-    
-    
-    
+    float volume = 0;
+    OSStatus status = GetInputVolumeForDevice(_audioRecorder.deviceID, &volume);
+    NSLog(@"status = %d,before volume = %f", status, volume);    
+    _sliderBar.intValue = volume * 100;
+
 }
+
+
 - (IBAction)startRecord:(id)sender {
     [_audioRecorder start];
 }
 - (IBAction)stopRecord:(id)sender {
     [_audioRecorder stop];
+}
+- (IBAction)sliderValueChange:(NSSlider *)sender {
+    
+    float volume = sender.intValue/100.0;
+    OSStatus status = SetInputVolumeForDevice(_audioRecorder.deviceID, volume);
+    if (status) {
+        NSLog(@"set volume failed, status = %d, volume = %f",status, volume);
+    } else {
+        NSLog(@"set volume success volume = %f", volume);
+
+    }
+    
+
+    
 }
 
 
