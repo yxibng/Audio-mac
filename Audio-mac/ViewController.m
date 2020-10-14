@@ -43,8 +43,20 @@ static NSString *cellMark = @"TableCell";
     
     float volume = 0;
     OSStatus status = GetInputVolumeForDevice(_audioRecorder.deviceID, &volume);
-    NSLog(@"status = %d,before volume = %f", status, volume);    
+    NSLog(@"status = %d,before volume = %f", status, volume);
     _sliderBar.intValue = volume * 100;
+    
+    
+    
+    bool mute = false;
+    status = GetInputMute(_audioRecorder.deviceID, &mute);
+    NSLog(@"status = %d, before mute = %d",status, mute);
+    status = SetInputMute(_audioRecorder.deviceID, true);
+    NSLog(@"status = %d, before mute = %d", status, mute);
+    status = GetInputMute(_audioRecorder.deviceID, &mute);
+    NSLog(@"status = %d, before mute = %d",status, mute);
+    
+    
 
 }
 

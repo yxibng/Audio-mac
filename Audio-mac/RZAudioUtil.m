@@ -116,6 +116,16 @@ OSStatus GetInputVolumeForDevice(AudioObjectID inDeviceID, float *volume) {
     
 }
 
+OSStatus SetInputMute(AudioObjectID inDeviceID,bool mute) {
+    //TODO: mute 保存当前音量， unmute 的时候恢复
+    return noErr;
+}
+
+OSStatus GetInputMute(AudioObjectID inDeviceID,bool *mute) {
+    //TODO: 音量为0，mute， 否则 unmute
+    return noErr;
+}
+
 
 OSStatus SetOutputVolumeForDevice(AudioObjectID inDeviceID, float volume) {
     AudioObjectPropertyAddress theAddress = {kAudioDevicePropertyVolumeScalar,

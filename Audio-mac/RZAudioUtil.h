@@ -34,6 +34,10 @@ OSStatus SetInputVolumeForDevice(AudioObjectID inDeviceID, float volume);
 //获取采集音量0-1.0
 OSStatus GetInputVolumeForDevice(AudioObjectID inDeviceID, float *volume);
 
+OSStatus SetInputMute(AudioObjectID inDeviceID,bool mute);
+OSStatus GetInputMute(AudioObjectID inDeviceID,bool *mute);
+
+
 //设置播放音量0-1.0，  设置为0 播放静音
 OSStatus SetOutputVolumeForDevice(AudioObjectID inDeviceID, float volume);
 //获取播放音量0-1.0
