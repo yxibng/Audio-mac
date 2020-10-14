@@ -19,6 +19,8 @@ static NSString *cellMark = @"TableCell";
 @property (nonatomic, strong) RZAudioRecorder *audioRecorder;
 
 
+
+
 @end
 
 @implementation ViewController
@@ -35,6 +37,11 @@ static NSString *cellMark = @"TableCell";
     
     RZAudioConfig config = (RZAudioConfig){1, 16000, 20};
     _audioRecorder = [[RZAudioRecorder alloc] initWithConfig:config delegate:self];
+    
+    
+    
+    
+    
     
 }
 - (IBAction)startRecord:(id)sender {
@@ -108,6 +115,10 @@ static NSString *cellMark = @"TableCell";
            sampleRate:(double)sampleRate
             timestamp:(NSTimeInterval)timestamp {
  
+    
+    
+    
+    
     
     NSLog(@"size = %d, sampleRate = %f", size, sampleRate);
     

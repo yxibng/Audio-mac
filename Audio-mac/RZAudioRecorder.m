@@ -10,6 +10,9 @@
 #import "RZAudioUtil.h"
 #import <AVFoundation/AVFoundation.h>
 
+
+#import "AudioFileHelper.h"
+
 #define kOutputBus 0
 #define kInputBus 1
 
@@ -20,8 +23,6 @@
  每次 IO 的时长为 128/44100 = 0.002毫秒， 这个已经是很高的实时性了
  */
 #define kIOBufferFrameSize 128
-
-
 
 typedef struct {
     AudioUnit audioUnit;
@@ -51,10 +52,13 @@ static OSStatus inputRenderCallback(void *inRefCon,
     @public
     RZAudioRecordInfo _recorderInfo;
     AUGraph _graph;
+    
+    
 }
 @property (nonatomic, assign) BOOL setupSuccess;
 @property (nonatomic, assign) RZAudioConfig realConfig;
 @property (nonatomic, assign) RZAudioConfig expectedConfig;
+@property (nonatomic, strong) AudioFileWriter *fileWriter;
 
 @end
 
@@ -150,6 +154,11 @@ static OSStatus inputRenderCallback(void *inRefCon,
                                   kInputBus,
                                   &_recorderInfo.outputScopeFormat,
                                   sizeof(_recorderInfo.outputScopeFormat));
+    
+    
+    
+    
+    
 
     NSAssert(status == noErr, @"Couldn't set streamFormat, status %d", status);
     
@@ -161,8 +170,6 @@ static OSStatus inputRenderCallback(void *inRefCon,
         return;
     }
 
-    
-    
     /*
      每次 IO 128 帧，采样率为 44100，目标采样率 16000
      重采样后，大概为 128 * 16000 / 44100 =  47 帧。
@@ -178,8 +185,29 @@ static OSStatus inputRenderCallback(void *inRefCon,
     _realConfig.channelCount = 1;
     _realConfig.sampleRate = _recorderInfo.outputScopeFormat.mSampleRate;
     _realConfig.timeInterval = kIOBufferFrameSize / _recorderInfo.outputScopeFormat.mSampleRate * 1000;
+    
+    //创建文件写入管理
+    if (_fileWriter) {
+        [_fileWriter stop];
+        _fileWriter = nil;
+    }
+    _fileWriter = [[AudioFileWriter alloc] initWithFilePath:kAudioFileWritePath() streamFormat:_recorderInfo.outputScopeFormat];
+    [_fileWriter start];
 }
 #endif
+
+
+
+static NSString *kAudioFileWritePath()
+{
+    NSString *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+    NSString *fileName = @"audio.caf";
+    NSString *path = [documentPath stringByAppendingPathComponent:fileName];
+    NSLog(@"%s, path = %@",__func__, path);
+    return path;
+}
+
+
 
 
 
@@ -559,6 +587,7 @@ static OSStatus inputRenderCallback(void *inRefCon,
     if ([recorder.delegate respondsToSelector:@selector(audioRecorder:didRecordAudioData:size:sampleRate:timestamp:)]) {
         [recorder.delegate audioRecorder:recorder didRecordAudioData:data size:size sampleRate:sampleRate timestamp:stime];
     }
+    [recorder.fileWriter writeData:data size:size];
 #endif
     return noErr;
 }

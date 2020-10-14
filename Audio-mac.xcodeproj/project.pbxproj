@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		86440A5025368B5500E47B93 /* AudioFileHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 86440A4F25368B5500E47B93 /* AudioFileHelper.m */; };
 		8678C13D2535E7C5003DF95B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C13C2535E7C5003DF95B /* AppDelegate.m */; };
 		8678C1402535E7C5003DF95B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C13F2535E7C5003DF95B /* ViewController.m */; };
 		8678C1422535E7C5003DF95B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8678C1412535E7C5003DF95B /* Assets.xcassets */; };
@@ -24,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		86440A4E25368B5500E47B93 /* AudioFileHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFileHelper.h; sourceTree = "<group>"; };
+		86440A4F25368B5500E47B93 /* AudioFileHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFileHelper.m; sourceTree = "<group>"; };
 		8678C1382535E7C5003DF95B /* Audio-mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Audio-mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8678C13B2535E7C5003DF95B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8678C13C2535E7C5003DF95B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -95,6 +98,8 @@
 				8678C1502535E813003DF95B /* DbyAudioDevice.m */,
 				8678C1582535E825003DF95B /* RZAudioUtil.h */,
 				8678C1572535E825003DF95B /* RZAudioUtil.m */,
+				86440A4E25368B5500E47B93 /* AudioFileHelper.h */,
+				86440A4F25368B5500E47B93 /* AudioFileHelper.m */,
 				8678C1512535E813003DF95B /* RZAudioRecorder.h */,
 				8678C1522535E813003DF95B /* RZAudioRecorder.m */,
 				8678C1412535E7C5003DF95B /* Assets.xcassets */,
@@ -192,6 +197,7 @@
 				8678C13D2535E7C5003DF95B /* AppDelegate.m in Sources */,
 				8678C15D2535EA02003DF95B /* TableCell.m in Sources */,
 				8678C1592535E825003DF95B /* RZAudioUtil.m in Sources */,
+				86440A5025368B5500E47B93 /* AudioFileHelper.m in Sources */,
 				8678C1552535E813003DF95B /* RZAudioRecorder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
