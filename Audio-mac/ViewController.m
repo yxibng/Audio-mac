@@ -14,14 +14,14 @@
 
 static NSString *cellMark = @"TableCell";
 
-@interface ViewController ()<NSTableViewDelegate,NSTableViewDataSource, RZAudioRecorderDelegate>
+@interface ViewController ()<NSTableViewDelegate,NSTableViewDataSource, RZAudioRecorderDelegate, DbyAudioDeviceManagerDelegate>
 
 @property (weak) IBOutlet NSTableView *tableView;
 @property (nonatomic, strong) NSArray<DbyAudioDevice *> *devices;
 @property (nonatomic, strong) RZAudioRecorder *audioRecorder;
 @property (weak) IBOutlet NSSlider *sliderBar;
 
-
+@property (nonatomic, strong) DbyAudioDeviceManager *audioDeviceManage;
 
 @end
 
@@ -29,6 +29,11 @@ static NSString *cellMark = @"TableCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    _audioDeviceManage = [[DbyAudioDeviceManager alloc] initWithDelegate:self];
+    
+    
     _devices = [DbyAudioDevice inputDevices];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -46,7 +51,20 @@ static NSString *cellMark = @"TableCell";
     NSLog(@"status = %d,before volume = %f", status, volume);
     _sliderBar.intValue = volume * 100;
     
+    int index = -1;
+    for (int i = 0; i < _devices.count; i++) {
+        DbyAudioDevice *device = _devices[i];
+        if (device.deviceID == _audioRecorder.deviceID) {
+            index = i;
+            break;;
+        }
+    }
     
+    if (index >= 0) {
+        //初始选中状态
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:index];
+        [self.tableView selectRowIndexes:indexSet byExtendingSelection:NO];
+    }
     
     bool mute = false;
     status = GetInputMute(_audioRecorder.deviceID, &mute);
@@ -154,6 +172,26 @@ static NSString *cellMark = @"TableCell";
     NSLog(@"size = %d, sampleRate = %f", size, sampleRate);
     
     
+}
+
+
+#pragma mark -
+- (void)manager:(DbyAudioDeviceManager *)manager inputDeviceChanged:(DbyAudioDevice *)device type:(DbyAudioDeviceChangeType)type {
+    
+    /*
+     TODO:设备断开,如果断开的是当前正在使用的设备。采集器需要重新 选择使用的设备
+     */
+    NSLog(@"%s",__FUNCTION__);
+    if (device.deviceID == self.audioRecorder.deviceID && type == DbyAudioDeviceChangeType_Remove) {
+        NSLog(@"disconnect name = %@, id = %d, new name = %@, id = %d", device.name, device.deviceID, manager.currentInputDevice.name, manager.currentInputDevice.deviceID);
+        [self.audioRecorder setDeviceID:manager.currentInputDevice.deviceID];
+    }
+    
+}
+- (void)manager:(DbyAudioDeviceManager *)manager outputDeviceChanged:(DbyAudioDevice *)device type:(DbyAudioDeviceChangeType)type {
+    /*
+     TODO:设备断开,如果断开的是当前正在使用的设备。者播放器需要重新 选择使用的设备
+     */
 }
 
 
