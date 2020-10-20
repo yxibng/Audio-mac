@@ -12,6 +12,8 @@
 		8606A56A253ED26500551D14 /* RZAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8606A569253ED26500551D14 /* RZAudioPlayer.m */; };
 		8606A570253ED27700551D14 /* DbyAudioChannelBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8606A56C253ED27700551D14 /* DbyAudioChannelBuffer.m */; };
 		8606A571253ED27700551D14 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 8606A56F253ED27700551D14 /* TPCircularBuffer.c */; };
+		866DF124253F2A56008B6DFB /* AudioFileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 866DF122253F2A56008B6DFB /* AudioFileReader.m */; };
+		866DF128253F2C15008B6DFB /* senorita.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 866DF127253F2C15008B6DFB /* senorita.mp3 */; };
 		8678C13D2535E7C5003DF95B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C13C2535E7C5003DF95B /* AppDelegate.m */; };
 		8678C1402535E7C5003DF95B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C13F2535E7C5003DF95B /* ViewController.m */; };
 		8678C1422535E7C5003DF95B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8678C1412535E7C5003DF95B /* Assets.xcassets */; };
@@ -40,6 +42,9 @@
 		8606A56D253ED27700551D14 /* DbyAudioChannelBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DbyAudioChannelBuffer.h; sourceTree = "<group>"; };
 		8606A56E253ED27700551D14 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
 		8606A56F253ED27700551D14 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
+		866DF122253F2A56008B6DFB /* AudioFileReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFileReader.m; sourceTree = "<group>"; };
+		866DF123253F2A56008B6DFB /* AudioFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFileReader.h; sourceTree = "<group>"; };
+		866DF127253F2C15008B6DFB /* senorita.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = senorita.mp3; sourceTree = "<group>"; };
 		8678C1382535E7C5003DF95B /* Audio-mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Audio-mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8678C13B2535E7C5003DF95B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8678C13C2535E7C5003DF95B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -93,6 +98,8 @@
 				8606A569253ED26500551D14 /* RZAudioPlayer.m */,
 				8606A562253EC9FD00551D14 /* RZFileUtil.h */,
 				8606A561253EC9FD00551D14 /* RZFileUtil.m */,
+				866DF123253F2A56008B6DFB /* AudioFileReader.h */,
+				866DF122253F2A56008B6DFB /* AudioFileReader.m */,
 				8606A55D253EC9D400551D14 /* AudioFileWriter.h */,
 				8606A55E253EC9D400551D14 /* AudioFileWriter.m */,
 				8678C1532535E813003DF95B /* DbyAudioDevice.h */,
@@ -103,6 +110,14 @@
 				8678C1522535E813003DF95B /* RZAudioRecorder.m */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		866DF126253F2C15008B6DFB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				866DF127253F2C15008B6DFB /* senorita.mp3 */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		8678C12F2535E7C5003DF95B = {
@@ -135,6 +150,7 @@
 				8678C15B2535EA02003DF95B /* TableCell.h */,
 				8678C15C2535EA02003DF95B /* TableCell.m */,
 				8678C1602535EA1D003DF95B /* TableCell.xib */,
+				866DF126253F2C15008B6DFB /* Resources */,
 				8678C1412535E7C5003DF95B /* Assets.xcassets */,
 				8678C1432535E7C5003DF95B /* Main.storyboard */,
 				8678C1462535E7C5003DF95B /* Info.plist */,
@@ -214,6 +230,7 @@
 				8678C1422535E7C5003DF95B /* Assets.xcassets in Resources */,
 				8678C1612535EA1D003DF95B /* TableCell.xib in Resources */,
 				8678C1452535E7C5003DF95B /* Main.storyboard in Resources */,
+				866DF128253F2C15008B6DFB /* senorita.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +248,7 @@
 				8606A56A253ED26500551D14 /* RZAudioPlayer.m in Sources */,
 				8606A55F253EC9D400551D14 /* AudioFileWriter.m in Sources */,
 				8678C13D2535E7C5003DF95B /* AppDelegate.m in Sources */,
+				866DF124253F2A56008B6DFB /* AudioFileReader.m in Sources */,
 				8606A571253ED27700551D14 /* TPCircularBuffer.c in Sources */,
 				8678C15D2535EA02003DF95B /* TableCell.m in Sources */,
 				8678C1592535E825003DF95B /* RZAudioUtil.m in Sources */,

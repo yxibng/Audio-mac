@@ -10,6 +10,8 @@
 #import "DbyAudioDevice.h"
 #import "RZAudioPlayer.h"
 #import "RZAudioUtil.h"
+#import "AudioFileReader.h"
+#import "RZFileUtil.h"
 
 static NSString *cellMark = @"TableCell";
 
@@ -18,6 +20,7 @@ static NSString *cellMark = @"TableCell";
 @property (nonatomic, strong) NSArray<DbyAudioDevice *> *devices;
 @property (weak) IBOutlet NSSlider *sliderBar;
 @property (nonatomic, strong) RZAudioPlayer *audioPlayer;
+@property (nonatomic, strong) AudioFileReader *fileReader;
 
 @end
 
@@ -34,7 +37,21 @@ static NSString *cellMark = @"TableCell";
     [self.tableView reloadData];
     
     _audioPlayer = [[RZAudioPlayer alloc] init];
+    _audioPlayer.delegate = self;
     
+    
+    float volume = 0;
+    OSStatus status =  GetOutputVolumeForDevice(_audioPlayer.deviceID, &volume);
+    NSLog(@"status = %d, volume = %f",status, volume);
+    
+    if (status == noErr) {
+        self.sliderBar.integerValue = volume * 100;
+    }
+    
+    
+    NSURL *fileURL = [[NSBundle mainBundle] URLForResource:@"senorita" withExtension:@"mp3"];
+    _fileReader = [[AudioFileReader alloc] initWithFileURL:fileURL clientFormat:_audioPlayer.streamDesc];
+    [_fileReader start];
     
     int index = -1;
     for (int i = 0; i < _devices.count; i++) {
@@ -112,6 +129,16 @@ static NSString *cellMark = @"TableCell";
 
 - (void)audioPlayerDidStop:(RZAudioPlayer *)audioPlayer {
     
+}
+
+- (void)audioPlayer:(RZAudioPlayer *)audioPlayer fillAudioBufferList:(AudioBufferList *)list inNumberOfFrames:(UInt32)inNumberOfFrames {
+ 
+    UInt32 size = 0;
+    BOOL eof = NO;
+    [_fileReader readFrames:inNumberOfFrames audioBufferList:list bufferSize:&size eof:&eof];
+    if (eof) {
+        [_fileReader seekToFrame:0];
+    }
 }
 
 @end

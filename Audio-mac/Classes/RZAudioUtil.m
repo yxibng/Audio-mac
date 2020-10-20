@@ -128,23 +128,37 @@ OSStatus GetInputMute(AudioObjectID inDeviceID,bool *mute) {
 
 
 OSStatus SetOutputVolumeForDevice(AudioObjectID inDeviceID, float volume) {
+    
+    //TODO:
+    //1.代表left 2. 代表right
     AudioObjectPropertyAddress theAddress = {kAudioDevicePropertyVolumeScalar,
                                                 kAudioObjectPropertyScopeOutput,
-                                             kAudioObjectPropertyElementMaster};
+                                             1};
     
-    return AudioObjectSetPropertyData(inDeviceID,
+    //left
+    OSStatus status =  AudioObjectSetPropertyData(inDeviceID,
                                       &theAddress,
                                       0,
                                       NULL,
                                       sizeof(float),
                                       &volume);
+    
+    theAddress.mElement = 2;
+    status = AudioObjectSetPropertyData(inDeviceID,
+                                        &theAddress,
+                                        0,
+                                        NULL,
+                                        sizeof(float),
+                                        &volume);
+    return status;
+    
 }
 OSStatus GetOutputVolumeForDevice(AudioObjectID inDeviceID, float *volume) {
     
     AudioObjectPropertyAddress theAddress = {
         kAudioDevicePropertyVolumeScalar,
         kAudioObjectPropertyScopeOutput,
-        kAudioObjectPropertyElementMaster};
+        1};
 
     UInt32 theDataSize = sizeof(float);
     return AudioObjectGetPropertyData(inDeviceID,

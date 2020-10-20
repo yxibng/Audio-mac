@@ -20,11 +20,15 @@ typedef NS_ENUM(NSUInteger, RZAudioPlayerStartError) {
 
 @protocol RZAudioPlayerDelegate <NSObject>
 
+@optional
 - (void)audioPlayer:(RZAudioPlayer *)audioPlayer didStartwithError:(RZAudioPlayerStartError)error;
 
 - (void)auidoPlayer:(RZAudioPlayer *)audioPlayer didOccurError:(NSDictionary *)userInfo;
 
 - (void)audioPlayerDidStop:(RZAudioPlayer *)audioPlayer;
+
+- (void)audioPlayer:(RZAudioPlayer *)audioPlayer fillAudioBufferList:(AudioBufferList *)list inNumberOfFrames:(UInt32)inNumberOfFrames;
+
 
 @end
 
@@ -32,6 +36,8 @@ typedef NS_ENUM(NSUInteger, RZAudioPlayerStartError) {
 @interface RZAudioPlayer : NSObject
 
 @property (nonatomic, weak) id<RZAudioPlayerDelegate>delegate;
+
+@property (nonatomic, assign, readonly) AudioStreamBasicDescription streamDesc;
 
 - (void)start;
 - (void)stop;

@@ -50,6 +50,7 @@
     if (self) {
         _buffer = [[DbyAudioChannelBuffer alloc] init];
         _inputStreamFormat = [RZAudioUtil intFormatWithNumberOfChannels:1 sampleRate:16000];
+        _streamDesc = _inputStreamFormat;
         [self rz_setup];
     }
     return self;
@@ -325,15 +326,19 @@ static OSStatus playbackCallback(void *inRefCon,
                                  AudioBufferList *ioData)
 {
     RZAudioPlayer *player = (__bridge RZAudioPlayer *)inRefCon;
-    for (NSInteger i = 0; i < ioData->mNumberBuffers; i++) {
-        if (i == 0) {
-            int size = ioData->mBuffers[0].mDataByteSize;
-            [player.buffer dequeueLength:size dstBuffer:ioData->mBuffers[0].mData];
-        } else {
-            memcpy(ioData->mBuffers[i].mData, ioData->mBuffers[0].mData, ioData->mBuffers[i].mDataByteSize);
-        }
+    if ([player.delegate respondsToSelector:@selector(audioPlayer:fillAudioBufferList:inNumberOfFrames:)]) {
+        [player.delegate audioPlayer:player fillAudioBufferList:ioData inNumberOfFrames:inNumberFrames];
     }
     return noErr;
+//    for (NSInteger i = 0; i < ioData->mNumberBuffers; i++) {
+//        if (i == 0) {
+//            int size = ioData->mBuffers[0].mDataByteSize;
+//            [player.buffer dequeueLength:size dstBuffer:ioData->mBuffers[0].mData];
+//        } else {
+//            memcpy(ioData->mBuffers[i].mData, ioData->mBuffers[0].mData, ioData->mBuffers[i].mDataByteSize);
+//        }
+//    }
+//    return noErr;
 }
 
 
