@@ -110,7 +110,7 @@ static NSString *cellMark = @"TableCell";
 #pragma mark -
 - (IBAction)tableViewSelectionChange:(NSTableView *)sender {
     NSInteger selectedRow = [self.tableView selectedRow];
-    NSLog(@"selectedRow = %d",selectedRow);
+    NSLog(@"selectedRow = %ld",(long)selectedRow);
 
     
     //change device
@@ -163,15 +163,8 @@ static NSString *cellMark = @"TableCell";
                  size:(int)size
            sampleRate:(double)sampleRate
             timestamp:(NSTimeInterval)timestamp {
- 
-    
-    
-    
-    
-    
+  
     NSLog(@"size = %d, sampleRate = %f", size, sampleRate);
-    
-    
 }
 
 
@@ -179,7 +172,7 @@ static NSString *cellMark = @"TableCell";
 - (void)manager:(DbyAudioDeviceManager *)manager inputDeviceChanged:(DbyAudioDevice *)device type:(DbyAudioDeviceChangeType)type {
     
     /*
-     TODO:设备断开,如果断开的是当前正在使用的设备。采集器需要重新 选择使用的设备
+     设备断开,如果断开的是当前正在使用的设备。采集器需要重新 选择使用的设备
      */
     NSLog(@"%s",__FUNCTION__);
     if (device.deviceID == self.audioRecorder.deviceID && type == DbyAudioDeviceChangeType_Remove) {

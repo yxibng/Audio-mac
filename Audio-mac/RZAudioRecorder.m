@@ -24,6 +24,24 @@
  */
 #define kIOBufferFrameSize 128
 
+
+static uint64_t getTickCount(void)
+{
+    static mach_timebase_info_data_t sTimebaseInfo;
+    uint64_t machTime = mach_absolute_time();
+    
+    // Convert to nanoseconds - if this is the first time we've run, get the timebase.
+    if (sTimebaseInfo.denom == 0 )
+    {
+        (void) mach_timebase_info(&sTimebaseInfo);
+    }
+    // 得到毫秒级别时间差
+    uint64_t millis = ((machTime / 1e6) * sTimebaseInfo.numer) / sTimebaseInfo.denom;
+    return millis;
+}
+
+
+
 typedef struct {
     AudioUnit audioUnit;
     AUNode audioNode;
@@ -32,7 +50,6 @@ typedef struct {
     AudioBufferList *renderBufferList;
     AudioStreamBasicDescription inputScopeFormat;
 #endif
-    
     AudioStreamBasicDescription outputScopeFormat;
 
 } RZAudioRecordInfo;
@@ -582,7 +599,8 @@ static OSStatus inputRenderCallback(void *inRefCon,
 
     //TODO: 时间戳
     //时间戳
-    double stime = [[NSDate date] timeIntervalSince1970] * 1000;
+    double stime = getTickCount();
+    NSLog(@"stime = %f",stime);
 
     if ([recorder.delegate respondsToSelector:@selector(audioRecorder:didRecordAudioData:size:sampleRate:timestamp:)]) {
         [recorder.delegate audioRecorder:recorder didRecordAudioData:data size:size sampleRate:sampleRate timestamp:stime];
