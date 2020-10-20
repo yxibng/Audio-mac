@@ -85,6 +85,7 @@ static NSString *cellMark = @"TableCell";
 - (IBAction)stopRecord:(id)sender {
     [_audioRecorder stop];
 }
+
 - (IBAction)sliderValueChange:(NSSlider *)sender {
     
     float volume = sender.intValue/100.0;
@@ -164,7 +165,7 @@ static NSString *cellMark = @"TableCell";
            sampleRate:(double)sampleRate
             timestamp:(NSTimeInterval)timestamp {
   
-    NSLog(@"size = %d, sampleRate = %f", size, sampleRate);
+//    NSLog(@"size = %d, sampleRate = %f", size, sampleRate);
 }
 
 

@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		86440A5025368B5500E47B93 /* AudioFileHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 86440A4F25368B5500E47B93 /* AudioFileHelper.m */; };
+		8606A55F253EC9D400551D14 /* AudioFileWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8606A55E253EC9D400551D14 /* AudioFileWriter.m */; };
+		8606A563253EC9FD00551D14 /* RZFileUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8606A561253EC9FD00551D14 /* RZFileUtil.m */; };
 		8678C13D2535E7C5003DF95B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C13C2535E7C5003DF95B /* AppDelegate.m */; };
 		8678C1402535E7C5003DF95B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C13F2535E7C5003DF95B /* ViewController.m */; };
 		8678C1422535E7C5003DF95B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8678C1412535E7C5003DF95B /* Assets.xcassets */; };
@@ -25,8 +26,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		86440A4E25368B5500E47B93 /* AudioFileHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFileHelper.h; sourceTree = "<group>"; };
-		86440A4F25368B5500E47B93 /* AudioFileHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFileHelper.m; sourceTree = "<group>"; };
+		8606A55D253EC9D400551D14 /* AudioFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFileWriter.h; sourceTree = "<group>"; };
+		8606A55E253EC9D400551D14 /* AudioFileWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFileWriter.m; sourceTree = "<group>"; };
+		8606A561253EC9FD00551D14 /* RZFileUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZFileUtil.m; sourceTree = "<group>"; };
+		8606A562253EC9FD00551D14 /* RZFileUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZFileUtil.h; sourceTree = "<group>"; };
 		8678C1382535E7C5003DF95B /* Audio-mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Audio-mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8678C13B2535E7C5003DF95B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8678C13C2535E7C5003DF95B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -94,12 +97,14 @@
 				8678C15B2535EA02003DF95B /* TableCell.h */,
 				8678C15C2535EA02003DF95B /* TableCell.m */,
 				8678C1602535EA1D003DF95B /* TableCell.xib */,
+				8606A562253EC9FD00551D14 /* RZFileUtil.h */,
+				8606A561253EC9FD00551D14 /* RZFileUtil.m */,
+				8606A55D253EC9D400551D14 /* AudioFileWriter.h */,
+				8606A55E253EC9D400551D14 /* AudioFileWriter.m */,
 				8678C1532535E813003DF95B /* DbyAudioDevice.h */,
 				8678C1502535E813003DF95B /* DbyAudioDevice.m */,
 				8678C1582535E825003DF95B /* RZAudioUtil.h */,
 				8678C1572535E825003DF95B /* RZAudioUtil.m */,
-				86440A4E25368B5500E47B93 /* AudioFileHelper.h */,
-				86440A4F25368B5500E47B93 /* AudioFileHelper.m */,
 				8678C1512535E813003DF95B /* RZAudioRecorder.h */,
 				8678C1522535E813003DF95B /* RZAudioRecorder.m */,
 				8678C1412535E7C5003DF95B /* Assets.xcassets */,
@@ -194,11 +199,12 @@
 				8678C1542535E813003DF95B /* DbyAudioDevice.m in Sources */,
 				8678C1402535E7C5003DF95B /* ViewController.m in Sources */,
 				8678C1482535E7C5003DF95B /* main.m in Sources */,
+				8606A55F253EC9D400551D14 /* AudioFileWriter.m in Sources */,
 				8678C13D2535E7C5003DF95B /* AppDelegate.m in Sources */,
 				8678C15D2535EA02003DF95B /* TableCell.m in Sources */,
 				8678C1592535E825003DF95B /* RZAudioUtil.m in Sources */,
-				86440A5025368B5500E47B93 /* AudioFileHelper.m in Sources */,
 				8678C1552535E813003DF95B /* RZAudioRecorder.m in Sources */,
+				8606A563253EC9FD00551D14 /* RZFileUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,9 +9,8 @@
 #import "DbyAudioDevice.h"
 #import "RZAudioUtil.h"
 #import <AVFoundation/AVFoundation.h>
-
-
-#import "AudioFileHelper.h"
+#import "AudioFileWriter.h"
+#import "RZFileUtil.h"
 
 #define kOutputBus 0
 #define kInputBus 1
@@ -205,11 +204,15 @@ static OSStatus inputRenderCallback(void *inRefCon,
     
     //创建文件写入管理
     if (_fileWriter) {
-        [_fileWriter stop];
+        [_fileWriter dispose];
         _fileWriter = nil;
     }
-    _fileWriter = [[AudioFileWriter alloc] initWithFilePath:kAudioFileWritePath() streamFormat:_recorderInfo.outputScopeFormat];
-    [_fileWriter start];
+    
+    NSString *filePath = [[RZFileUtil documentPath] stringByAppendingPathComponent:@"recording_audio.caf"];
+    NSLog(@"recording file path = %@",filePath);
+    
+    _fileWriter = [[AudioFileWriter alloc] initWithInStreamDesc:_recorderInfo.outputScopeFormat filePath:filePath];
+    [_fileWriter setup];
 }
 #endif
 
@@ -600,12 +603,12 @@ static OSStatus inputRenderCallback(void *inRefCon,
     //TODO: 时间戳
     //时间戳
     double stime = getTickCount();
-    NSLog(@"stime = %f",stime);
 
     if ([recorder.delegate respondsToSelector:@selector(audioRecorder:didRecordAudioData:size:sampleRate:timestamp:)]) {
         [recorder.delegate audioRecorder:recorder didRecordAudioData:data size:size sampleRate:sampleRate timestamp:stime];
     }
-    [recorder.fileWriter writeData:data size:size];
+    //写入文件
+    [recorder.fileWriter writeWithAudioBufferList:recorder->_recorderInfo.renderBufferList inNumberFrames:inNumberFrames];
 #endif
     return noErr;
 }
