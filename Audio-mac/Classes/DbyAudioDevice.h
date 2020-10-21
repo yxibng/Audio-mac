@@ -98,6 +98,8 @@ typedef NS_ENUM(NSUInteger, DbyAudioDeviceChangeType) {
 
 //------------------------------------------------------------------------------
 
+@property (nonatomic, assign, readonly) UInt32 portType;
+
 /**
  An NSString representing the name of the manufacturer of the device.
     - OSX only

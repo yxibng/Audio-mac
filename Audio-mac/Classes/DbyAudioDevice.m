@@ -20,6 +20,7 @@
 #elif TARGET_OS_OSX
 
 @property (nonatomic, assign, readwrite) AudioDeviceID deviceID;
+@property (nonatomic, assign, readwrite) UInt32 portType;
 @property (nonatomic, copy, readwrite) NSString *manufacturer;
 @property (nonatomic, assign, readwrite) NSInteger inputChannelCount;
 @property (nonatomic, assign, readwrite) NSInteger outputChannelCount;
@@ -519,6 +520,7 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
         AudioDeviceID deviceID = deviceIDs[i];
         DbyAudioDevice *device = [[DbyAudioDevice alloc] init];
         device.deviceID = deviceID;
+        device.portType = [self portTypeForDeviceID:deviceID];
         device.manufacturer = [self manufacturerForDeviceID:deviceID];
         device.name = [self namePropertyForDeviceID:deviceID];
         device.UID = [self UIDPropertyForDeviceID:deviceID];
@@ -571,6 +573,26 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
     return (__bridge_transfer NSString *)string;
 }
 
+
++ (UInt32)portTypeForDeviceID:(AudioDeviceID)deviceID {
+    
+    AudioObjectPropertyAddress address = [self addressForPropertySelector:kAudioDevicePropertyTransportType];
+    
+    UInt32 portType;
+    UInt32 propSize = sizeof(UInt32);
+    
+    OSStatus status = AudioObjectGetPropertyData(deviceID,
+                                                 &address,
+                                                 0,
+                                                 NULL,
+                                                 &propSize,
+                                                 &portType);
+
+    NSString *errorString = [NSString stringWithFormat:@"Failed to get device property (%u)", (unsigned int)kAudioDevicePropertyTransportType];
+    NSAssert(status == noErr, errorString);
+    return portType;
+}
+
 + (NSString *)manufacturerForDeviceID:(AudioDeviceID)deviceID
 {
     return [self stringPropertyForSelector:kAudioDevicePropertyDeviceManufacturerCFString
@@ -588,6 +610,8 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
     return [self stringPropertyForSelector:kAudioDevicePropertyDeviceUID
                               withDeviceID:deviceID];
 }
+
+
 
 + (NSInteger)channelCountForScope:(AudioObjectPropertyScope)scope
                       forDeviceID:(AudioDeviceID)deviceID
