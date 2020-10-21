@@ -15,12 +15,16 @@
 
 static NSString *cellMark = @"TableCell";
 
-@interface RZPlaybackViewController ()<NSTableViewDelegate,NSTableViewDataSource, RZAudioPlayerDelegate>
+@interface RZPlaybackViewController ()<NSTableViewDelegate,NSTableViewDataSource, RZAudioPlayerDelegate,DbyAudioDeviceManagerDelegate>
 @property (weak) IBOutlet NSTableView *tableView;
 @property (nonatomic, strong) NSArray<DbyAudioDevice *> *devices;
 @property (weak) IBOutlet NSSlider *sliderBar;
 @property (nonatomic, strong) RZAudioPlayer *audioPlayer;
 @property (nonatomic, strong) AudioFileReader *fileReader;
+
+@property (nonatomic, strong) DbyAudioDeviceManager *deviceManager;
+
+@property (weak) IBOutlet NSButton *muteBox;
 
 @end
 
@@ -28,6 +32,9 @@ static NSString *cellMark = @"TableCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _deviceManager = [[DbyAudioDeviceManager alloc] initWithDelegate:self];
+    
     _devices = [DbyAudioDevice outputDevices];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -46,6 +53,12 @@ static NSString *cellMark = @"TableCell";
     
     if (status == noErr) {
         self.sliderBar.integerValue = volume * 100;
+    }
+    
+    bool mute;
+    status = GetOutputMute(_audioPlayer.deviceID, &mute);
+    if (status == noErr && mute) {
+        self.muteBox.state = NSControlStateValueOn;
     }
     
     
@@ -77,6 +90,13 @@ static NSString *cellMark = @"TableCell";
     [_audioPlayer stop];
 }
 
+- (IBAction)muteChange:(NSButton *)sender {
+
+    bool mute = sender.state == NSControlStateValueOn;
+    SetOutputMute(_audioPlayer.deviceID, mute);
+    
+}
+
 - (IBAction)sliderValueChange:(NSSlider *)sender {
     
     float volume = sender.intValue/100.0;
@@ -94,10 +114,12 @@ static NSString *cellMark = @"TableCell";
 - (IBAction)tableViewSelectionChange:(NSTableView *)sender {
     NSInteger selectedRow = [self.tableView selectedRow];
     NSLog(@"selectedRow = %ld",(long)selectedRow);
-    
-    //change device
-    DbyAudioDevice *device = _devices[selectedRow];
-    [_audioPlayer setDeviceID:device.deviceID];
+    if (selectedRow >= 0 && selectedRow <_devices.count) {
+        //change device
+        DbyAudioDevice *device = _devices[selectedRow];
+        [_audioPlayer setDeviceID:device.deviceID];
+    }
+
     
 }
 
@@ -140,5 +162,28 @@ static NSString *cellMark = @"TableCell";
         [_fileReader seekToFrame:0];
     }
 }
+
+
+#pragma mark -
+- (void)manager:(DbyAudioDeviceManager *)manager inputDeviceChanged:(DbyAudioDevice *)device type:(DbyAudioDeviceChangeType)type {
+    
+    /*
+     设备断开,如果断开的是当前正在使用的设备。采集器需要重新 选择使用的设备
+     */
+
+    
+}
+- (void)manager:(DbyAudioDeviceManager *)manager outputDeviceChanged:(DbyAudioDevice *)device type:(DbyAudioDeviceChangeType)type {
+    /*
+     TODO:设备断开,如果断开的是当前正在使用的设备。者播放器需要重新 选择使用的设备
+     */
+    if (type == DbyAudioDeviceChangeType_Remove && device.deviceID == self.audioPlayer.deviceID) {
+        //切换播放设备
+        DbyAudioDevice *next = [DbyAudioDevice currentOutputDevice];
+        [self.audioPlayer setDeviceID:next.deviceID];
+        NSLog(@"disconnect is %@, next = %@",device.name, next.name);
+    }
+}
+
 
 @end

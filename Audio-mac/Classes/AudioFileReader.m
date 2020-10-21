@@ -150,6 +150,20 @@ typedef struct {
 }
 
 
+- (void)seekToFrame:(SInt64)frame {
+    if (_audioFileInfo.closed) {
+        return;
+    }
+    
+    OSStatus status = ExtAudioFileSeek(_audioFileInfo.extAudioFileRef, frame);
+    assert(status == noErr);
+    if (status) {
+        return;
+    }
+    
+}
+
+
 - (void)stop
 {
     if (_audioFileInfo.closed) {
