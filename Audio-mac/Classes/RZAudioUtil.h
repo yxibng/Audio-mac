@@ -9,6 +9,11 @@
 #import <AudioToolbox/AudioToolbox.h>
 NS_ASSUME_NONNULL_BEGIN
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #if TARGET_OS_OSX
 
 OSStatus GetIOBufferFrameSizeRange(AudioObjectID inDeviceID,
@@ -53,6 +58,9 @@ OSStatus AudioUnitSetMaxIOBufferFrameSize(AudioUnit inAUHAL,
 OSStatus AudioUnitGetMaxIOBufferFrameSize(AudioUnit inAUHAL,
                                           UInt32 *outIOBufferFrameSize);
 
+#ifdef __cplusplus
+}
+#endif
 
 @interface RZAudioUtil : NSObject
 //uint 16, 平面存储

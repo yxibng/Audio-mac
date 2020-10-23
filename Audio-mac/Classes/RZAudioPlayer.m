@@ -281,8 +281,7 @@
     UInt32 min, max;
     status = GetIOBufferFrameSizeRange(deviceID, &min, &max);
     NSLog(@"min = %d, max = %d",min, max);
-    //当前 unit 的最大 slice
-    [self rz_setMaximumBufferSize:max];
+
     
     //获取需要输入的数据的格式
     UInt32 propSize = sizeof(AudioStreamBasicDescription);
@@ -295,6 +294,8 @@
     NSLog(@"input sample rate = %f",desc.mSampleRate);
     UInt32 ioBufferFrameSize = desc.mSampleRate * 0.02;
     //设置当前设备的每次读取的采样个数
+    //当前 unit 的最大 slice
+    [self rz_setMaximumBufferSize:max];
     status = SetCurrentIOBufferFrameSize(deviceID, ioBufferFrameSize);
     NSAssert(status == noErr, @"failed to set current io buffer framesize to %d", ioBufferFrameSize);
     if (status != noErr) {
@@ -325,11 +326,8 @@ static OSStatus playbackCallback(void *inRefCon,
                                  UInt32 inNumberFrames,
                                  AudioBufferList *ioData)
 {
-    RZAudioPlayer *player = (__bridge RZAudioPlayer *)inRefCon;
-    if ([player.delegate respondsToSelector:@selector(audioPlayer:fillAudioBufferList:inNumberOfFrames:)]) {
-        [player.delegate audioPlayer:player fillAudioBufferList:ioData inNumberOfFrames:inNumberFrames];
-    }
-    return noErr;
+    
+//    RZAudioPlayer *player = (__bridge RZAudioPlayer *)inRefCon;
 //    for (NSInteger i = 0; i < ioData->mNumberBuffers; i++) {
 //        if (i == 0) {
 //            int size = ioData->mBuffers[0].mDataByteSize;
@@ -339,6 +337,13 @@ static OSStatus playbackCallback(void *inRefCon,
 //        }
 //    }
 //    return noErr;
+    
+    RZAudioPlayer *player = (__bridge RZAudioPlayer *)inRefCon;
+    if ([player.delegate respondsToSelector:@selector(audioPlayer:fillAudioBufferList:inNumberOfFrames:)]) {
+        [player.delegate audioPlayer:player fillAudioBufferList:ioData inNumberOfFrames:inNumberFrames];
+    }
+    return noErr;
+
 }
 
 

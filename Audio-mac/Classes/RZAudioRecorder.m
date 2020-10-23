@@ -178,7 +178,7 @@ static OSStatus inputRenderCallback(void *inRefCon,
 
     NSAssert(status == noErr, @"Couldn't set streamFormat, status %d", status);
     
-    [self rz_setMaximumBufferSize:4096];
+    [self rz_setMaximumBufferSize:max];
     status = SetCurrentIOBufferFrameSize(deviceId, _recorderInfo.inputScopeFormat.mSampleRate * 0.02);
     NSAssert(status == noErr, @"Couldn't set IOBufferFrameSize to %d, status %d", kIOBufferFrameSize, status);
     if (status != noErr) {
