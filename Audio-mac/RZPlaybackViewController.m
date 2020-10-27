@@ -37,6 +37,11 @@ static NSString *cellMark = @"TableCell";
 @end
 
 @implementation RZPlaybackViewController
+- (void)dealloc
+{
+
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
