@@ -13,6 +13,14 @@
 #import "AudioFileReader.h"
 #import "RZFileUtil.h"
 
+static char *codeToString(UInt32 code)
+{
+    static char str[5] = { '\0' };
+    UInt32 swapped = CFSwapInt32HostToBig(code);
+    memcpy(str, &swapped, sizeof(swapped));
+    return str;
+}
+
 static NSString *cellMark = @"TableCell";
 
 @interface RZPlaybackViewController ()<NSTableViewDelegate,NSTableViewDataSource, RZAudioPlayerDelegate,DbyAudioDeviceManagerDelegate>
@@ -136,7 +144,7 @@ static NSString *cellMark = @"TableCell";
     NSString *identifier = cellMark;
     TableCell *cell = [tableView makeViewWithIdentifier:identifier owner:self];
     DbyAudioDevice *device = self.devices[row];
-    cell.label.stringValue = device.name;
+    cell.label.stringValue = [device.name stringByAppendingFormat:@" type = %s", codeToString(device.portType)];
     return cell;
 }
 

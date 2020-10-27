@@ -409,6 +409,12 @@ static NSString *kAudioFileWritePath()
 
 - (void)start
 {
+#if TARGET_OS_OSX
+    if (_deviceID == kAudioObjectUnknown) {
+        //回调没有指定设备
+        return;
+    }
+#endif
     if (!self.setupSuccess) {
         //初始化失败
         if ([self.delegate respondsToSelector:@selector(audioRecorder:didStartWithError:)]) {

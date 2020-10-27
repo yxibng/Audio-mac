@@ -13,6 +13,9 @@
 UInt32 channelCountForScope(AudioObjectPropertyScope scope, AudioDeviceID deviceID)
 
 {
+    if (deviceID == kAudioDeviceUnknown) {
+        return -1;
+    }
     AudioObjectPropertyAddress address;
     address.mScope = scope;
     address.mElement = kAudioObjectPropertyElementMaster;
@@ -43,6 +46,9 @@ OSStatus GetIOBufferFrameSizeRange(AudioObjectID inDeviceID,
                                    UInt32 *outMinimum,
                                    UInt32 *outMaximum)
 {
+    if (inDeviceID == kAudioObjectUnknown) {
+        return -1;
+    }
     AudioObjectPropertyAddress theAddress = {kAudioDevicePropertyBufferFrameSizeRange,
         kAudioObjectPropertyScopeGlobal,
         kAudioObjectPropertyElementMaster};
@@ -65,6 +71,9 @@ OSStatus GetIOBufferFrameSizeRange(AudioObjectID inDeviceID,
 OSStatus SetCurrentIOBufferFrameSize(AudioObjectID inDeviceID,
                                      UInt32 inIOBufferFrameSize)
 {
+    if (inDeviceID == kAudioObjectUnknown) {
+        return -1;
+    }
     AudioObjectPropertyAddress theAddress = {kAudioDevicePropertyBufferFrameSize,
         kAudioObjectPropertyScopeGlobal,
         kAudioObjectPropertyElementMaster};
@@ -79,6 +88,9 @@ OSStatus SetCurrentIOBufferFrameSize(AudioObjectID inDeviceID,
 OSStatus GetCurrentIOBufferFrameSize(AudioObjectID inDeviceID,
                                      UInt32 *outIOBufferFrameSize)
 {
+    if (inDeviceID == kAudioObjectUnknown) {
+        return -1;
+    }
     AudioObjectPropertyAddress theAddress = {kAudioDevicePropertyBufferFrameSize,
         kAudioObjectPropertyScopeGlobal,
         kAudioObjectPropertyElementMaster};
@@ -114,7 +126,9 @@ OSStatus AudioUnitGetCurrentIOBufferFrameSize(AudioUnit inAUHAL,
 }
 
 OSStatus SetInputVolumeForDevice(AudioObjectID inDeviceID, float volume) {
-    
+    if (inDeviceID == kAudioObjectUnknown) {
+        return -1;
+    }
     OSStatus err = noErr;
     UInt32 size = 0;
     bool success = false;
@@ -164,6 +178,10 @@ OSStatus SetInputVolumeForDevice(AudioObjectID inDeviceID, float volume) {
 }
 
 OSStatus GetInputVolumeForDevice(AudioObjectID inDeviceID, float *volume) {
+    
+    if (inDeviceID == kAudioObjectUnknown) {
+        return -1;
+    }
     
     OSStatus err = noErr;
     UInt32 size = 0;
@@ -218,6 +236,11 @@ OSStatus GetInputVolumeForDevice(AudioObjectID inDeviceID, float *volume) {
 }
 
 OSStatus SetInputMute(AudioObjectID inDeviceID, bool enable) {
+    
+    if (inDeviceID == kAudioObjectUnknown) {
+        return -1;
+    }
+    
     OSStatus err = noErr;
     UInt32 size = 0;
     UInt32 mute = enable ? 1 : 0;
@@ -254,6 +277,9 @@ OSStatus SetInputMute(AudioObjectID inDeviceID, bool enable) {
 }
 
 OSStatus GetInputMute(AudioObjectID inDeviceID,bool *mute) {
+    if (inDeviceID == kAudioObjectUnknown) {
+        return -1;
+    }
     OSStatus err = noErr;
     UInt32 size = 0;
     unsigned int channels = 0;
@@ -305,7 +331,9 @@ OSStatus GetInputMute(AudioObjectID inDeviceID,bool *mute) {
 }
 
 OSStatus SetOutputMute(AudioObjectID inDeviceID, bool enable) {
-    
+    if (inDeviceID == kAudioObjectUnknown) {
+        return -1;
+    }
     OSStatus err = noErr;
     UInt32 size = 0;
     UInt32 mute = enable ? 1 : 0;
@@ -353,6 +381,9 @@ OSStatus SetOutputMute(AudioObjectID inDeviceID, bool enable) {
 }
 
 OSStatus GetOutputMute(AudioObjectID inDeviceID,bool *mute) {
+    if (inDeviceID == kAudioObjectUnknown) {
+        return -1;
+    }
     OSStatus err = noErr;
     UInt32 size = 0;
     unsigned int channels = 0;
@@ -399,7 +430,9 @@ OSStatus GetOutputMute(AudioObjectID inDeviceID,bool *mute) {
 
 
 OSStatus SetOutputVolumeForDevice(AudioObjectID inDeviceID, float volume) {
-    
+    if (inDeviceID == kAudioObjectUnknown) {
+        return -1;
+    }
     assert(volume <= 1.0 && volume >= 0.0);
     OSStatus err = noErr;
     UInt32 size = 0;
@@ -447,7 +480,9 @@ OSStatus SetOutputVolumeForDevice(AudioObjectID inDeviceID, float volume) {
 }
 
 OSStatus GetOutputVolumeForDevice(AudioObjectID inDeviceID, float *volume) {
-    
+    if (inDeviceID == kAudioObjectUnknown) {
+        return -1;
+    }
     OSStatus err = noErr;
     UInt32 size = 0;
     unsigned int channels = 0;

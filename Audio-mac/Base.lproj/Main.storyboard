@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="mvm-7w-v8I">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
@@ -711,13 +711,13 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JiB-Jt-MM9">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="166"/>
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="114"/>
                                 <clipView key="contentView" id="1Ma-oo-vxn">
-                                    <rect key="frame" x="1" y="0.0" width="198" height="165"/>
+                                    <rect key="frame" x="1" y="0.0" width="198" height="113"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="1uJ-De-RYu" viewBased="YES" id="E6B-Kf-brE">
-                                            <rect key="frame" x="0.0" y="0.0" width="198" height="140"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="198" height="88"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -783,7 +783,7 @@
                                 </tableHeaderView>
                             </scrollView>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SyY-l0-6jg">
-                                <rect key="frame" x="360" y="43" width="100" height="81"/>
+                                <rect key="frame" x="360" y="17" width="100" height="81"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2ER-1l-E3d">
                                         <rect key="frame" x="16" y="53" width="69" height="32"/>
@@ -875,17 +875,17 @@
             <objects>
                 <viewController id="bNT-Sz-iGT" customClass="RZPlaybackViewController" sceneMemberID="viewController">
                     <view key="view" misplaced="YES" id="8vU-cx-bwm">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="244"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="219"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="44" horizontalPageScroll="10" verticalLineScroll="44" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXX-OS-WzX">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="45"/>
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="219"/>
                                 <clipView key="contentView" id="O3V-eo-AXY">
-                                    <rect key="frame" x="1" y="0.0" width="198" height="44"/>
+                                    <rect key="frame" x="1" y="0.0" width="198" height="218"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="42" rowSizeStyle="automatic" headerView="vk4-sw-mjY" viewBased="YES" id="mkE-q7-Cik">
-                                            <rect key="frame" x="0.0" y="0.0" width="198" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="198" height="193"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -951,7 +951,7 @@
                                 </tableHeaderView>
                             </scrollView>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5b4-ci-PPU">
-                                <rect key="frame" x="360" y="-31" width="100" height="107"/>
+                                <rect key="frame" x="360" y="56" width="100" height="107"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kEO-V4-fkd">
                                         <rect key="frame" x="24" y="91" width="53" height="18"/>
