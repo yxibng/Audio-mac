@@ -216,21 +216,6 @@ static OSStatus inputRenderCallback(void *inRefCon,
 }
 #endif
 
-
-
-static NSString *kAudioFileWritePath()
-{
-    NSString *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
-    NSString *fileName = @"audio.caf";
-    NSString *path = [documentPath stringByAppendingPathComponent:fileName];
-    NSLog(@"%s, path = %@",__func__, path);
-    return path;
-}
-
-
-
-
-
 - (UInt32)rz_maximumBufferSize
 {
     UInt32 maximumBufferSize;
