@@ -374,8 +374,10 @@ static OSStatus inputRenderCallback(void *inRefCon,
 
 #if TARGET_OS_OSX
     DbyAudioDevice *device = [DbyAudioDevice currentInputDevice];
-    NSLog(@"audio capture device = %@, id = %d", device.name, device.deviceID);
-    [self setDeviceID:device.deviceID];
+    if (device) {
+        [self setDeviceID:device.deviceID];
+        NSLog(@"audio capture device = %@, id = %d", device.name, device.deviceID);
+    }
 #endif
     
     status = AUGraphInitialize(_graph);

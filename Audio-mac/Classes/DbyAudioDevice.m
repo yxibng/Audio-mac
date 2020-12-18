@@ -638,7 +638,7 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
 }
 
 
-+ (DbyAudioDevice *)deviceWithPropertySelector:(AudioObjectPropertySelector)propertySelector
++ (DbyAudioDevice *_Nullable)deviceWithPropertySelector:(AudioObjectPropertySelector)propertySelector
 {
     AudioDeviceID deviceID;
     UInt32 propSize = sizeof(AudioDeviceID);
@@ -651,7 +651,9 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
                                                  &deviceID);
 
     NSAssert(status == noErr, @"Failed to get device on OSX");
-
+    if (deviceID == kAudioObjectUnknown) {
+        return nil;
+    }
     DbyAudioDevice *device = [[DbyAudioDevice alloc] init];
     device.deviceID = deviceID;
     device.manufacturer = [self manufacturerForDeviceID:deviceID];
