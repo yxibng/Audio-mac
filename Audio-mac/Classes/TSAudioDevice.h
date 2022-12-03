@@ -1,5 +1,5 @@
 //
-//  DbyAudioDevice.h
+//  TSAudioDevice.h
 //  Pods
 //
 //  Created by yxibng on 2020/1/6.
@@ -17,58 +17,58 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 #if TARGET_OS_OSX
-@class DbyAudioDevice, DbyAudioDeviceManager;
+@class TSAudioDevice, TSAudioDeviceManager;
 
-typedef NS_ENUM(NSUInteger, DbyAudioDeviceChangeType) {
-    DbyAudioDeviceChangeType_Add = 0,
-    DbyAudioDeviceChangeType_Remove = 1
+typedef NS_ENUM(NSUInteger, TSAudioDeviceChangeType) {
+    TSAudioDeviceChangeType_Add = 0,
+    TSAudioDeviceChangeType_Remove = 1
 };
 
 
-@protocol DbyAudioDeviceManagerDelegate <NSObject>
+@protocol TSAudioDeviceManagerDelegate <NSObject>
 
 @optional
 
-- (void)manager:(DbyAudioDeviceManager *)manager inputDeviceChanged:(DbyAudioDevice *)device type:(DbyAudioDeviceChangeType)type;
-- (void)manager:(DbyAudioDeviceManager *)manager outputDeviceChanged:(DbyAudioDevice *)device type:(DbyAudioDeviceChangeType)type;
+- (void)manager:(TSAudioDeviceManager *)manager inputDeviceChanged:(TSAudioDevice *)device type:(TSAudioDeviceChangeType)type;
+- (void)manager:(TSAudioDeviceManager *)manager outputDeviceChanged:(TSAudioDevice *)device type:(TSAudioDeviceChangeType)type;
 
 @end
 
 
-@interface DbyAudioDeviceManager : NSObject
+@interface TSAudioDeviceManager : NSObject
 
-- (instancetype)initWithDelegate:(_Nullable id<DbyAudioDeviceManagerDelegate>)delegate NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDelegate:(_Nullable id<TSAudioDeviceManagerDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, copy) void(^inputChangeCallback)(DbyAudioDevice *device, DbyAudioDeviceChangeType type);
-@property (nonatomic, copy) void(^outputChangeCallback)(DbyAudioDevice *device, DbyAudioDeviceChangeType type);
+@property (nonatomic, copy) void(^inputChangeCallback)(TSAudioDevice *device, TSAudioDeviceChangeType type);
+@property (nonatomic, copy) void(^outputChangeCallback)(TSAudioDevice *device, TSAudioDeviceChangeType type);
 
 
-@property (nonatomic, weak) id<DbyAudioDeviceManagerDelegate> delegate;
+@property (nonatomic, weak) id<TSAudioDeviceManagerDelegate> delegate;
 
-@property (nonatomic, strong, readonly) DbyAudioDevice *currentInputDevice;
-@property (nonatomic, strong, readonly) DbyAudioDevice *currentOutputDevice;
+@property (nonatomic, strong, readonly) TSAudioDevice *currentInputDevice;
+@property (nonatomic, strong, readonly) TSAudioDevice *currentOutputDevice;
 
-@property (nonatomic, strong, readonly) NSArray<DbyAudioDevice *> *inputDevices;
-@property (nonatomic, strong, readonly) NSArray<DbyAudioDevice *> *outputDevices;
+@property (nonatomic, strong, readonly) NSArray<TSAudioDevice *> *inputDevices;
+@property (nonatomic, strong, readonly) NSArray<TSAudioDevice *> *outputDevices;
 
 @end
 
 #endif
 
 
-@interface DbyAudioDevice : NSObject
+@interface TSAudioDevice : NSObject
 
-+ (DbyAudioDevice *)currentInputDevice;
-+ (DbyAudioDevice *)currentOutputDevice;
++ (TSAudioDevice *)currentInputDevice;
++ (TSAudioDevice *)currentOutputDevice;
 
-+ (NSArray<DbyAudioDevice *> *)inputDevices;
-+ (NSArray<DbyAudioDevice *> *)outputDevices;
++ (NSArray<TSAudioDevice *> *)inputDevices;
++ (NSArray<TSAudioDevice *> *)outputDevices;
 
-+ (void)enumerateInputDevicesUsingBlock:(void (^)(DbyAudioDevice *device, BOOL *stop))block;
-+ (void)enumerateOutputDevicesUsingBlock:(void (^)(DbyAudioDevice *device, BOOL *stop))block;
-+ (void)enumerateDevicesUsingBlock:(void (^)(DbyAudioDevice *device, BOOL *stop))block;
++ (void)enumerateInputDevicesUsingBlock:(void (^)(TSAudioDevice *device, BOOL *stop))block;
++ (void)enumerateOutputDevicesUsingBlock:(void (^)(TSAudioDevice *device, BOOL *stop))block;
++ (void)enumerateDevicesUsingBlock:(void (^)(TSAudioDevice *device, BOOL *stop))block;
 
-+ (NSArray<DbyAudioDevice *> *)devices;
++ (NSArray<TSAudioDevice *> *)devices;
 
 @property (nonatomic, copy, readonly) NSString *name;
 

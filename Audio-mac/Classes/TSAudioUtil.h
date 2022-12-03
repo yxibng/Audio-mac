@@ -1,6 +1,6 @@
 //
-//  RZAudioUtil.h
-//  RZPaas_macOS
+//  TSAudioUtil.h
+//  TSRtc_macOS
 //
 //  Created by yxibng on 2020/9/29.
 //
@@ -8,7 +8,6 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 NS_ASSUME_NONNULL_BEGIN
-
 
 #ifdef __cplusplus
 extern "C" {
@@ -62,7 +61,8 @@ OSStatus AudioUnitGetMaxIOBufferFrameSize(AudioUnit inAUHAL,
 }
 #endif
 
-@interface RZAudioUtil : NSObject
+
+@interface TSAudioUtil : NSObject
 //uint 16, 平面存储
 + (AudioStreamBasicDescription)intFormatWithNumberOfChannels:(UInt32)channels
                                                   sampleRate:(float)sampleRate;

@@ -1,11 +1,11 @@
 //
-//  RZAudioUtil.m
-//  RZPaas_macOS
+//  TSAudioUtil.m
+//  TSRtc_macOS
 //
 //  Created by yxibng on 2020/9/29.
 //
 
-#import "RZAudioUtil.h"
+#import "TSAudioUtil.h"
 #import <AVFoundation/AVFoundation.h>
 
 #if TARGET_OS_OSX
@@ -14,8 +14,9 @@ UInt32 channelCountForScope(AudioObjectPropertyScope scope, AudioDeviceID device
 
 {
     if (deviceID == kAudioDeviceUnknown) {
-        return -1;
+        return 0;
     }
+    
     AudioObjectPropertyAddress address;
     address.mScope = scope;
     address.mElement = kAudioObjectPropertyElementMaster;
@@ -46,7 +47,7 @@ OSStatus GetIOBufferFrameSizeRange(AudioObjectID inDeviceID,
                                    UInt32 *outMinimum,
                                    UInt32 *outMaximum)
 {
-    if (inDeviceID == kAudioObjectUnknown) {
+    if (inDeviceID == kAudioDeviceUnknown) {
         return -1;
     }
     AudioObjectPropertyAddress theAddress = {kAudioDevicePropertyBufferFrameSizeRange,
@@ -71,9 +72,6 @@ OSStatus GetIOBufferFrameSizeRange(AudioObjectID inDeviceID,
 OSStatus SetCurrentIOBufferFrameSize(AudioObjectID inDeviceID,
                                      UInt32 inIOBufferFrameSize)
 {
-    if (inDeviceID == kAudioObjectUnknown) {
-        return -1;
-    }
     AudioObjectPropertyAddress theAddress = {kAudioDevicePropertyBufferFrameSize,
         kAudioObjectPropertyScopeGlobal,
         kAudioObjectPropertyElementMaster};
@@ -88,9 +86,11 @@ OSStatus SetCurrentIOBufferFrameSize(AudioObjectID inDeviceID,
 OSStatus GetCurrentIOBufferFrameSize(AudioObjectID inDeviceID,
                                      UInt32 *outIOBufferFrameSize)
 {
-    if (inDeviceID == kAudioObjectUnknown) {
+    
+    if (inDeviceID == kAudioDeviceUnknown) {
         return -1;
     }
+    
     AudioObjectPropertyAddress theAddress = {kAudioDevicePropertyBufferFrameSize,
         kAudioObjectPropertyScopeGlobal,
         kAudioObjectPropertyElementMaster};
@@ -126,9 +126,11 @@ OSStatus AudioUnitGetCurrentIOBufferFrameSize(AudioUnit inAUHAL,
 }
 
 OSStatus SetInputVolumeForDevice(AudioObjectID inDeviceID, float volume) {
-    if (inDeviceID == kAudioObjectUnknown) {
+    
+    if (inDeviceID == kAudioDeviceUnknown) {
         return -1;
     }
+    
     OSStatus err = noErr;
     UInt32 size = 0;
     bool success = false;
@@ -179,7 +181,7 @@ OSStatus SetInputVolumeForDevice(AudioObjectID inDeviceID, float volume) {
 
 OSStatus GetInputVolumeForDevice(AudioObjectID inDeviceID, float *volume) {
     
-    if (inDeviceID == kAudioObjectUnknown) {
+    if (inDeviceID == kAudioDeviceUnknown) {
         return -1;
     }
     
@@ -237,7 +239,7 @@ OSStatus GetInputVolumeForDevice(AudioObjectID inDeviceID, float *volume) {
 
 OSStatus SetInputMute(AudioObjectID inDeviceID, bool enable) {
     
-    if (inDeviceID == kAudioObjectUnknown) {
+    if (inDeviceID == kAudioDeviceUnknown) {
         return -1;
     }
     
@@ -277,9 +279,11 @@ OSStatus SetInputMute(AudioObjectID inDeviceID, bool enable) {
 }
 
 OSStatus GetInputMute(AudioObjectID inDeviceID,bool *mute) {
-    if (inDeviceID == kAudioObjectUnknown) {
+    
+    if (inDeviceID == kAudioDeviceUnknown) {
         return -1;
     }
+    
     OSStatus err = noErr;
     UInt32 size = 0;
     unsigned int channels = 0;
@@ -331,9 +335,11 @@ OSStatus GetInputMute(AudioObjectID inDeviceID,bool *mute) {
 }
 
 OSStatus SetOutputMute(AudioObjectID inDeviceID, bool enable) {
-    if (inDeviceID == kAudioObjectUnknown) {
+    
+    if (inDeviceID == kAudioDeviceUnknown) {
         return -1;
     }
+    
     OSStatus err = noErr;
     UInt32 size = 0;
     UInt32 mute = enable ? 1 : 0;
@@ -381,9 +387,11 @@ OSStatus SetOutputMute(AudioObjectID inDeviceID, bool enable) {
 }
 
 OSStatus GetOutputMute(AudioObjectID inDeviceID,bool *mute) {
-    if (inDeviceID == kAudioObjectUnknown) {
+    
+    if (inDeviceID == kAudioDeviceUnknown) {
         return -1;
     }
+    
     OSStatus err = noErr;
     UInt32 size = 0;
     unsigned int channels = 0;
@@ -430,7 +438,7 @@ OSStatus GetOutputMute(AudioObjectID inDeviceID,bool *mute) {
 
 
 OSStatus SetOutputVolumeForDevice(AudioObjectID inDeviceID, float volume) {
-    if (inDeviceID == kAudioObjectUnknown) {
+    if (inDeviceID == kAudioDeviceUnknown) {
         return -1;
     }
     assert(volume <= 1.0 && volume >= 0.0);
@@ -480,7 +488,7 @@ OSStatus SetOutputVolumeForDevice(AudioObjectID inDeviceID, float volume) {
 }
 
 OSStatus GetOutputVolumeForDevice(AudioObjectID inDeviceID, float *volume) {
-    if (inDeviceID == kAudioObjectUnknown) {
+    if (inDeviceID == kAudioDeviceUnknown) {
         return -1;
     }
     OSStatus err = noErr;
@@ -561,7 +569,7 @@ OSStatus AudioUnitGetMaxIOBufferFrameSize(AudioUnit audioUnit,
 
 
 
-@implementation RZAudioUtil
+@implementation TSAudioUtil
 
 + (AudioStreamBasicDescription)floatFormatWithNumberOfChannels:(UInt32)channels
                                                     sampleRate:(float)sampleRate
@@ -646,7 +654,6 @@ OSStatus AudioUnitGetMaxIOBufferFrameSize(AudioUnit audioUnit,
         }
         free(bufferList);
     }
-    bufferList = NULL;
 }
 
 

@@ -7,10 +7,11 @@
 
 #import "RZPlaybackViewController.h"
 #import "TableCell.h"
-#import "DbyAudioDevice.h"
-#import "RZAudioPlayer.h"
-#import "RZAudioUtil.h"
+#import "TSAudioDevice.h"
+#import "TSAudioRecorder.h"
+#import "TSAudioPlayer.h"
 #import "AudioFileReader.h"
+#import "TSAudioUtil.h"
 #import "RZFileUtil.h"
 
 static char *codeToString(UInt32 code)
@@ -23,14 +24,14 @@ static char *codeToString(UInt32 code)
 
 static NSString *cellMark = @"TableCell";
 
-@interface RZPlaybackViewController ()<NSTableViewDelegate,NSTableViewDataSource, RZAudioPlayerDelegate,DbyAudioDeviceManagerDelegate>
+@interface RZPlaybackViewController ()<NSTableViewDelegate,NSTableViewDataSource, TSAudioPlayerDelegate,TSAudioDeviceManagerDelegate>
 @property (weak) IBOutlet NSTableView *tableView;
-@property (nonatomic, strong) NSArray<DbyAudioDevice *> *devices;
+@property (nonatomic, strong) NSArray<TSAudioDevice *> *devices;
 @property (weak) IBOutlet NSSlider *sliderBar;
-@property (nonatomic, strong) RZAudioPlayer *audioPlayer;
+@property (nonatomic, strong) TSAudioPlayer *audioPlayer;
 @property (nonatomic, strong) AudioFileReader *fileReader;
 
-@property (nonatomic, strong) DbyAudioDeviceManager *deviceManager;
+@property (nonatomic, strong) TSAudioDeviceManager *deviceManager;
 
 @property (weak) IBOutlet NSButton *muteBox;
 
@@ -46,9 +47,9 @@ static NSString *cellMark = @"TableCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _deviceManager = [[DbyAudioDeviceManager alloc] initWithDelegate:self];
+    _deviceManager = [[TSAudioDeviceManager alloc] initWithDelegate:self];
     
-    _devices = [DbyAudioDevice outputDevices];
+    _devices = [TSAudioDevice outputDevices];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
@@ -56,7 +57,7 @@ static NSString *cellMark = @"TableCell";
     [self.tableView registerNib:nib forIdentifier:cellMark];
     [self.tableView reloadData];
     
-    _audioPlayer = [[RZAudioPlayer alloc] init];
+    _audioPlayer = [[TSAudioPlayer alloc] init];
     _audioPlayer.delegate = self;
     
     
@@ -81,7 +82,7 @@ static NSString *cellMark = @"TableCell";
     
     int index = -1;
     for (int i = 0; i < _devices.count; i++) {
-        DbyAudioDevice *device = _devices[i];
+        TSAudioDevice *device = _devices[i];
         if (device.deviceID == _audioPlayer.deviceID) {
             index = i;
             break;
@@ -129,7 +130,7 @@ static NSString *cellMark = @"TableCell";
     NSLog(@"selectedRow = %ld",(long)selectedRow);
     if (selectedRow >= 0 && selectedRow <_devices.count) {
         //change device
-        DbyAudioDevice *device = _devices[selectedRow];
+        TSAudioDevice *device = _devices[selectedRow];
         [_audioPlayer setDeviceID:device.deviceID];
     }
 
@@ -148,25 +149,25 @@ static NSString *cellMark = @"TableCell";
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     NSString *identifier = cellMark;
     TableCell *cell = [tableView makeViewWithIdentifier:identifier owner:self];
-    DbyAudioDevice *device = self.devices[row];
+    TSAudioDevice *device = self.devices[row];
     cell.label.stringValue = [device.name stringByAppendingFormat:@" type = %s", codeToString(device.portType)];
     return cell;
 }
 
 #pragma mark -
-- (void)audioPlayer:(RZAudioPlayer *)audioPlayer didStartwithError:(RZAudioPlayerStartError)error {
+- (void)audioPlayer:(TSAudioPlayer *)audioPlayer didStartwithError:(TSAudioPlayerStartError)error {
     
 }
 
-- (void)auidoPlayer:(RZAudioPlayer *)audioPlayer didOccurError:(NSDictionary *)userInfo {
+- (void)auidoPlayer:(TSAudioPlayer *)audioPlayer didOccurError:(NSDictionary *)userInfo {
     
 }
 
-- (void)audioPlayerDidStop:(RZAudioPlayer *)audioPlayer {
+- (void)audioPlayerDidStop:(TSAudioPlayer *)audioPlayer {
     
 }
 
-- (void)audioPlayer:(RZAudioPlayer *)audioPlayer fillAudioBufferList:(AudioBufferList *)list inNumberOfFrames:(UInt32)inNumberOfFrames {
+- (void)audioPlayer:(TSAudioPlayer *)audioPlayer fillAudioBufferList:(AudioBufferList *)list inNumberOfFrames:(UInt32)inNumberOfFrames {
  
     UInt32 size = 0;
     BOOL eof = NO;
@@ -178,7 +179,7 @@ static NSString *cellMark = @"TableCell";
 
 
 #pragma mark -
-- (void)manager:(DbyAudioDeviceManager *)manager inputDeviceChanged:(DbyAudioDevice *)device type:(DbyAudioDeviceChangeType)type {
+- (void)manager:(TSAudioDeviceManager *)manager inputDeviceChanged:(TSAudioDevice *)device type:(TSAudioDeviceChangeType)type {
     
     /*
      设备断开,如果断开的是当前正在使用的设备。采集器需要重新 选择使用的设备
@@ -186,13 +187,13 @@ static NSString *cellMark = @"TableCell";
 
     
 }
-- (void)manager:(DbyAudioDeviceManager *)manager outputDeviceChanged:(DbyAudioDevice *)device type:(DbyAudioDeviceChangeType)type {
+- (void)manager:(TSAudioDeviceManager *)manager outputDeviceChanged:(TSAudioDevice *)device type:(TSAudioDeviceChangeType)type {
     /*
      TODO:设备断开,如果断开的是当前正在使用的设备。者播放器需要重新 选择使用的设备
      */
-    if (type == DbyAudioDeviceChangeType_Remove && device.deviceID == self.audioPlayer.deviceID) {
+    if (type == TSAudioDeviceChangeType_Remove && device.deviceID == self.audioPlayer.deviceID) {
         //切换播放设备
-        DbyAudioDevice *next = [DbyAudioDevice currentOutputDevice];
+        TSAudioDevice *next = [TSAudioDevice currentOutputDevice];
         [self.audioPlayer setDeviceID:next.deviceID];
         NSLog(@"disconnect is %@, next = %@",device.name, next.name);
     }

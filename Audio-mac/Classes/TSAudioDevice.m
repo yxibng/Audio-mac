@@ -1,14 +1,14 @@
 //
-//  DbyAudioDevice.m
+//  TSAudioDevice.m
 //  Pods
 //
 //  Created by yxibng on 2020/1/6.
 //
 
-#import "DbyAudioDevice.h"
+#import "TSAudioDevice.h"
 
 
-@interface DbyAudioDevice ()
+@interface TSAudioDevice ()
 
 @property (nonatomic, copy, readwrite) NSString *name;
 
@@ -34,21 +34,21 @@
 #if TARGET_OS_OSX
 
 
-@implementation DbyAudioDeviceManager
+@implementation TSAudioDeviceManager
 
 - (void)dealloc
 {
     [self removeListener];
 }
 
-- (instancetype)initWithDelegate:(id<DbyAudioDeviceManagerDelegate>)delegate
+- (instancetype)initWithDelegate:(id<TSAudioDeviceManagerDelegate>)delegate
 {
     if (self = [super init]) {
         _delegate = delegate;
-        _inputDevices = [DbyAudioDevice inputDevices];
-        _outputDevices = [DbyAudioDevice outputDevices];
-        _currentInputDevice = [DbyAudioDevice currentInputDevice];
-        _currentOutputDevice = [DbyAudioDevice currentOutputDevice];
+        _inputDevices = [TSAudioDevice inputDevices];
+        _outputDevices = [TSAudioDevice outputDevices];
+        _currentInputDevice = [TSAudioDevice currentInputDevice];
+        _currentOutputDevice = [TSAudioDevice currentOutputDevice];
         [self addListener];
     }
     return self;
@@ -62,44 +62,39 @@
 - (void)handleInputDeviceChanges
 {
     NSArray *oldInputs = self.inputDevices;
-    NSArray *currentInputs = [DbyAudioDevice inputDevices];
+    NSArray *currentInputs = [TSAudioDevice inputDevices];
 
-    self->_inputDevices = [DbyAudioDevice inputDevices];
-    self->_currentInputDevice = [DbyAudioDevice currentInputDevice];
+    self->_inputDevices = [TSAudioDevice inputDevices];
+    self->_currentInputDevice = [TSAudioDevice currentInputDevice];
 
     if (oldInputs.count > currentInputs.count) {
         //old device removed
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"NOT (SELF IN %@)", currentInputs];
         NSArray *changedInputs = [oldInputs filteredArrayUsingPredicate:predicate];
-        for (DbyAudioDevice *removedDevice in changedInputs) {
+        for (TSAudioDevice *removedDevice in changedInputs) {
             
             if (self.inputChangeCallback) {
-                self.inputChangeCallback(removedDevice, DbyAudioDeviceChangeType_Remove);
+                self.inputChangeCallback(removedDevice, TSAudioDeviceChangeType_Remove);
             }
             
             
             if ([self.delegate respondsToSelector:@selector(manager:inputDeviceChanged:type:)]) {
-                [self.delegate manager:self inputDeviceChanged:removedDevice type:DbyAudioDeviceChangeType_Remove];
+                [self.delegate manager:self inputDeviceChanged:removedDevice type:TSAudioDeviceChangeType_Remove];
             }
         }
-
-        NSLog(@"old inputs remove, old = %@, new = %@, removed = %@", oldInputs, currentInputs, changedInputs);
-
     } else if (oldInputs.count < currentInputs.count) {
         //new device added
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"NOT (SELF IN %@)", oldInputs];
         NSArray *changedInputs = [currentInputs filteredArrayUsingPredicate:predicate];
-        for (DbyAudioDevice *addedDevice in changedInputs) {
+        for (TSAudioDevice *addedDevice in changedInputs) {
             if ([self.delegate respondsToSelector:@selector(manager:inputDeviceChanged:type:)]) {
-                [self.delegate manager:self inputDeviceChanged:addedDevice type:DbyAudioDeviceChangeType_Add];
+                [self.delegate manager:self inputDeviceChanged:addedDevice type:TSAudioDeviceChangeType_Add];
             }
             
             if (self.inputChangeCallback) {
-                self.inputChangeCallback(addedDevice, DbyAudioDeviceChangeType_Add);
+                self.inputChangeCallback(addedDevice, TSAudioDeviceChangeType_Add);
             }
         }
-        NSLog(@"new inputs added, old = %@, new = %@, added = %@", oldInputs, currentInputs, changedInputs);
-
     } else {
         //no changes
     }
@@ -108,38 +103,36 @@
 - (void)handleOutputDeviceChanges
 {
     NSArray *oldOutputs = self.outputDevices;
-    NSArray *currentOutputs = [DbyAudioDevice outputDevices];
+    NSArray *currentOutputs = [TSAudioDevice outputDevices];
 
-    self->_outputDevices = [DbyAudioDevice outputDevices];
-    self->_currentOutputDevice = [DbyAudioDevice currentOutputDevice];
+    self->_outputDevices = [TSAudioDevice outputDevices];
+    self->_currentOutputDevice = [TSAudioDevice currentOutputDevice];
 
     if (oldOutputs.count > currentOutputs.count) {
         //old device removed
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"NOT (SELF IN %@)", currentOutputs];
         NSArray *changedOutputs = [oldOutputs filteredArrayUsingPredicate:predicate];
-        for (DbyAudioDevice *removedDevice in changedOutputs) {
+        for (TSAudioDevice *removedDevice in changedOutputs) {
             if ([self.delegate respondsToSelector:@selector(manager:outputDeviceChanged:type:)]) {
-                [self.delegate manager:self outputDeviceChanged:removedDevice type:DbyAudioDeviceChangeType_Remove];
+                [self.delegate manager:self outputDeviceChanged:removedDevice type:TSAudioDeviceChangeType_Remove];
             }
             if (self.outputChangeCallback) {
-                self.outputChangeCallback(removedDevice, DbyAudioDeviceChangeType_Remove);
+                self.outputChangeCallback(removedDevice, TSAudioDeviceChangeType_Remove);
             }
             
         }
-        NSLog(@"old ouptut remove, old = %@, new = %@, removed = %@", oldOutputs, currentOutputs, changedOutputs);
     } else if (oldOutputs.count < currentOutputs.count) {
         //new device added
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"NOT (SELF IN %@)", oldOutputs];
         NSArray *changedOutputs = [currentOutputs filteredArrayUsingPredicate:predicate];
-        for (DbyAudioDevice *addedDevice in changedOutputs) {
+        for (TSAudioDevice *addedDevice in changedOutputs) {
             if ([self.delegate respondsToSelector:@selector(manager:outputDeviceChanged:type:)]) {
-                [self.delegate manager:self outputDeviceChanged:addedDevice type:DbyAudioDeviceChangeType_Add];
+                [self.delegate manager:self outputDeviceChanged:addedDevice type:TSAudioDeviceChangeType_Add];
             }
             if (self.outputChangeCallback) {
-                self.outputChangeCallback(addedDevice, DbyAudioDeviceChangeType_Add);
+                self.outputChangeCallback(addedDevice, TSAudioDeviceChangeType_Add);
             }
         }
-        NSLog(@"new ouptut added, old = %@, new = %@, added = %@", oldOutputs, currentOutputs, changedOutputs);
     } else {
         //no changes
     }
@@ -211,12 +204,12 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
     if (!inNumberAddresses) {
         return noErr;
     }
-    DbyAudioDeviceManager *manager = (__bridge DbyAudioDeviceManager *)(inClientData);
+    TSAudioDeviceManager *manager = (__bridge TSAudioDeviceManager *)(inClientData);
     AudioObjectPropertyAddress addr = inAddresses[0];
     if (addr.mSelector == kAudioHardwarePropertyDefaultInputDevice) {
-        manager->_currentInputDevice = [DbyAudioDevice currentInputDevice];
+        manager->_currentInputDevice = [TSAudioDevice currentInputDevice];
     } else if (addr.mSelector == kAudioHardwarePropertyDefaultOutputDevice) {
-        manager->_currentOutputDevice = [DbyAudioDevice currentOutputDevice];
+        manager->_currentOutputDevice = [TSAudioDevice currentOutputDevice];
     } else if (addr.mSelector == kAudioHardwarePropertyDevices) {
         //diff inputs & outputs
         [manager handleInputDeviceChanges];
@@ -230,11 +223,11 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
 #endif
 
 
-@implementation DbyAudioDevice
+@implementation TSAudioDevice
 
-- (BOOL)isEqual:(DbyAudioDevice *)object
+- (BOOL)isEqual:(TSAudioDevice *)object
 {
-    if (![object isKindOfClass:DbyAudioDevice.class]) {
+    if (![object isKindOfClass:TSAudioDevice.class]) {
         return NO;
     }
 
@@ -269,46 +262,46 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
 
 #if TARGET_OS_IOS
 
-+ (DbyAudioDevice *)currentInputDevice
++ (TSAudioDevice *)currentInputDevice
 {
     AVAudioSession *session = [AVAudioSession sharedInstance];
     AVAudioSessionPortDescription *port = [[[session currentRoute] inputs] firstObject];
     AVAudioSessionDataSourceDescription *dataSource = [session inputDataSource];
-    DbyAudioDevice *device = [[DbyAudioDevice alloc] init];
+    TSAudioDevice *device = [[TSAudioDevice alloc] init];
     device.port = port;
     device.dataSource = dataSource;
     return device;
 }
 
-+ (DbyAudioDevice *)currentOutputDevice
++ (TSAudioDevice *)currentOutputDevice
 {
     AVAudioSession *session = [AVAudioSession sharedInstance];
     AVAudioSessionPortDescription *port = [[[session currentRoute] outputs] firstObject];
     AVAudioSessionDataSourceDescription *dataSource = [session outputDataSource];
-    DbyAudioDevice *device = [[DbyAudioDevice alloc] init];
+    TSAudioDevice *device = [[TSAudioDevice alloc] init];
     device.port = port;
     device.dataSource = dataSource;
     return device;
 }
 
-+ (NSArray<DbyAudioDevice *> *)inputDevices
++ (NSArray<TSAudioDevice *> *)inputDevices
 {
-    NSMutableArray *inputs = @[].mutableCopy;
-    [self enumerateInputDevicesUsingBlock:^(DbyAudioDevice *_Nonnull device, BOOL *_Nonnull stop) {
+    NSMutableArray *inputs = [NSMutableArray array];
+    [self enumerateInputDevicesUsingBlock:^(TSAudioDevice *_Nonnull device, BOOL *_Nonnull stop) {
         [inputs addObject:device];
     }];
     return inputs;
 }
-+ (NSArray<DbyAudioDevice *> *)outputDevices
++ (NSArray<TSAudioDevice *> *)outputDevices
 {
-    NSMutableArray *outputs = @[].mutableCopy;
-    [self enumerateOutputDevicesUsingBlock:^(DbyAudioDevice *_Nonnull device, BOOL *_Nonnull stop) {
+    NSMutableArray *outputs = [NSMutableArray array];
+    [self enumerateOutputDevicesUsingBlock:^(TSAudioDevice *_Nonnull device, BOOL *_Nonnull stop) {
         [outputs addObject:device];
     }];
     return outputs;
 }
 
-+ (void)enumerateInputDevicesUsingBlock:(void (^)(DbyAudioDevice *_Nonnull device, BOOL *_Nonnull))block
++ (void)enumerateInputDevicesUsingBlock:(void (^)(TSAudioDevice *_Nonnull device, BOOL *_Nonnull))block
 {
     if (!block) {
         return;
@@ -316,16 +309,15 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
 
     NSArray *inputs = [[AVAudioSession sharedInstance] availableInputs];
     if (!inputs) {
-        NSLog(@"Audio session is not active! In order to enumerate the audio devices you must set the category and set active the audio session for your iOS app before calling this function.");
         return;
     }
 
-    BOOL stop;
+    BOOL stop = NO;
     for (AVAudioSessionPortDescription *inputDevicePortDescription in inputs) {
         NSArray *dataSources = [inputDevicePortDescription dataSources];
         if (dataSources.count) {
             for (AVAudioSessionDataSourceDescription *inputDeviceDataSourceDescription in dataSources) {
-                DbyAudioDevice *device = [[DbyAudioDevice alloc] init];
+                TSAudioDevice *device = [[TSAudioDevice alloc] init];
                 device.port = inputDevicePortDescription;
                 device.dataSource = inputDeviceDataSourceDescription;
                 block(device, &stop);
@@ -334,7 +326,7 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
                 }
             }
         } else {
-            DbyAudioDevice *device = [[DbyAudioDevice alloc] init];
+            TSAudioDevice *device = [[TSAudioDevice alloc] init];
             device.port = inputDevicePortDescription;
             block(device, &stop);
             if (stop) {
@@ -344,7 +336,7 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
     }
 }
 
-+ (void)enumerateOutputDevicesUsingBlock:(void (^)(DbyAudioDevice *_Nonnull device, BOOL *_Nonnull))block
++ (void)enumerateOutputDevicesUsingBlock:(void (^)(TSAudioDevice *_Nonnull device, BOOL *_Nonnull))block
 {
     if (!block) {
         return;
@@ -353,13 +345,13 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
     AVAudioSessionRouteDescription *currentRoute = [[AVAudioSession sharedInstance] currentRoute];
     NSArray *portDescriptions = [currentRoute outputs];
 
-    BOOL stop;
+    BOOL stop = NO;
     for (AVAudioSessionPortDescription *outputDevicePortDescription in portDescriptions) {
         // add any additional sub-devices
         NSArray *dataSources = [outputDevicePortDescription dataSources];
         if (dataSources.count) {
             for (AVAudioSessionDataSourceDescription *outputDeviceDataSourceDescription in dataSources) {
-                DbyAudioDevice *device = [[DbyAudioDevice alloc] init];
+                TSAudioDevice *device = [[TSAudioDevice alloc] init];
                 device.port = outputDevicePortDescription;
                 device.dataSource = outputDeviceDataSourceDescription;
                 block(device, &stop);
@@ -368,7 +360,7 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
                 }
             }
         } else {
-            DbyAudioDevice *device = [[DbyAudioDevice alloc] init];
+            TSAudioDevice *device = [[TSAudioDevice alloc] init];
             device.port = outputDevicePortDescription;
             block(device, &stop);
             if (stop) {
@@ -378,10 +370,10 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
     }
 }
 
-+ (void)enumerateDevicesUsingBlock:(void (^)(DbyAudioDevice *_Nonnull device, BOOL *_Nonnull))block
++ (void)enumerateDevicesUsingBlock:(void (^)(TSAudioDevice *_Nonnull device, BOOL *_Nonnull))block
 {
     BOOL stop;
-    for (DbyAudioDevice *device in [self devices]) {
+    for (TSAudioDevice *device in [self devices]) {
         block(device, &stop);
         if (stop) {
             break;
@@ -389,15 +381,15 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
     }
 }
 
-+ (NSArray<DbyAudioDevice *> *)devices
++ (NSArray<TSAudioDevice *> *)devices
 {
-    NSMutableArray *allDevices = @[].mutableCopy;
+    NSMutableArray *allDevices = [NSMutableArray array];
 
-    [self enumerateInputDevicesUsingBlock:^(DbyAudioDevice *_Nonnull device, BOOL *_Nonnull stop) {
+    [self enumerateInputDevicesUsingBlock:^(TSAudioDevice *_Nonnull device, BOOL *_Nonnull stop) {
         [allDevices addObject:device];
     }];
 
-    [self enumerateOutputDevicesUsingBlock:^(DbyAudioDevice *_Nonnull device, BOOL *_Nonnull stop) {
+    [self enumerateOutputDevicesUsingBlock:^(TSAudioDevice *_Nonnull device, BOOL *_Nonnull stop) {
         [allDevices addObject:device];
     }];
     return allDevices;
@@ -419,20 +411,20 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
 
 #pragma mark - MAC
 
-+ (DbyAudioDevice *)currentInputDevice
++ (TSAudioDevice *)currentInputDevice
 {
     return [self deviceWithPropertySelector:kAudioHardwarePropertyDefaultInputDevice];
 }
 
-+ (DbyAudioDevice *)currentOutputDevice
++ (TSAudioDevice *)currentOutputDevice
 {
     return [self deviceWithPropertySelector:kAudioHardwarePropertyDefaultOutputDevice];
 }
 
-+ (NSArray<DbyAudioDevice *> *)inputDevices
++ (NSArray<TSAudioDevice *> *)inputDevices
 {
     NSMutableArray *devices = [NSMutableArray array];
-    [self enumerateDevicesUsingBlock:^(DbyAudioDevice *device, BOOL *stop) {
+    [self enumerateDevicesUsingBlock:^(TSAudioDevice *device, BOOL *stop) {
         if (device.inputChannelCount > 0) {
             [devices addObject:device];
         }
@@ -440,10 +432,10 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
     return devices;
 }
 
-+ (NSArray<DbyAudioDevice *> *)outputDevices
++ (NSArray<TSAudioDevice *> *)outputDevices
 {
     __block NSMutableArray *devices = [NSMutableArray array];
-    [self enumerateDevicesUsingBlock:^(DbyAudioDevice *device, BOOL *stop) {
+    [self enumerateDevicesUsingBlock:^(TSAudioDevice *device, BOOL *stop) {
         if (device.outputChannelCount > 0) {
             [devices addObject:device];
         }
@@ -451,14 +443,14 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
     return devices;
 }
 
-+ (void)enumerateInputDevicesUsingBlock:(void (^)(DbyAudioDevice *_Nonnull, BOOL *_Nonnull))block
++ (void)enumerateInputDevicesUsingBlock:(void (^)(TSAudioDevice *_Nonnull, BOOL *_Nonnull))block
 {
     if (!block) {
         return;
     }
     NSArray *inputs = [self inputDevices];
     BOOL stop;
-    for (DbyAudioDevice *device in inputs) {
+    for (TSAudioDevice *device in inputs) {
         block(device, &stop);
         if (stop) {
             break;
@@ -466,14 +458,14 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
     }
 }
 
-+ (void)enumerateOutputDevicesUsingBlock:(void (^)(DbyAudioDevice *_Nonnull, BOOL *_Nonnull))block
++ (void)enumerateOutputDevicesUsingBlock:(void (^)(TSAudioDevice *_Nonnull, BOOL *_Nonnull))block
 {
     if (!block) {
         return;
     }
     NSArray *outputs = [self outputDevices];
     BOOL stop;
-    for (DbyAudioDevice *device in outputs) {
+    for (TSAudioDevice *device in outputs) {
         block(device, &stop);
         if (stop) {
             break;
@@ -481,7 +473,7 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
     }
 }
 
-+ (void)enumerateDevicesUsingBlock:(void (^)(DbyAudioDevice *_Nonnull, BOOL *_Nonnull))block
++ (void)enumerateDevicesUsingBlock:(void (^)(TSAudioDevice *_Nonnull, BOOL *_Nonnull))block
 {
     if (!block) {
         return;
@@ -518,7 +510,7 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
     BOOL stop = NO;
     for (UInt32 i = 0; i < count; i++) {
         AudioDeviceID deviceID = deviceIDs[i];
-        DbyAudioDevice *device = [[DbyAudioDevice alloc] init];
+        TSAudioDevice *device = [[TSAudioDevice alloc] init];
         device.deviceID = deviceID;
         device.portType = [self portTypeForDeviceID:deviceID];
         device.manufacturer = [self manufacturerForDeviceID:deviceID];
@@ -535,10 +527,10 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
     free(deviceIDs);
 }
 
-+ (NSArray<DbyAudioDevice *> *)devices
++ (NSArray<TSAudioDevice *> *)devices
 {
     __block NSMutableArray *devices = [NSMutableArray array];
-    [self enumerateDevicesUsingBlock:^(DbyAudioDevice *device, BOOL *stop) {
+    [self enumerateDevicesUsingBlock:^(TSAudioDevice *device, BOOL *stop) {
         [devices addObject:device];
     }];
     return devices;
@@ -570,6 +562,9 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
 
     NSString *errorString = [NSString stringWithFormat:@"Failed to get device property (%u)", (unsigned int)selector];
     NSAssert(status == noErr, errorString);
+    if (status) {
+        return @"";
+    }
     return (__bridge_transfer NSString *)string;
 }
 
@@ -638,7 +633,7 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
 }
 
 
-+ (DbyAudioDevice *_Nullable)deviceWithPropertySelector:(AudioObjectPropertySelector)propertySelector
++ (TSAudioDevice * _Nullable)deviceWithPropertySelector:(AudioObjectPropertySelector)propertySelector
 {
     AudioDeviceID deviceID;
     UInt32 propSize = sizeof(AudioDeviceID);
@@ -651,10 +646,11 @@ OSStatus deviceChangeCallback(AudioObjectID inObjectID,
                                                  &deviceID);
 
     NSAssert(status == noErr, @"Failed to get device on OSX");
-    if (deviceID == kAudioObjectUnknown) {
+    if (deviceID == kAudioDeviceUnknown) {
         return nil;
     }
-    DbyAudioDevice *device = [[DbyAudioDevice alloc] init];
+    
+    TSAudioDevice *device = [[TSAudioDevice alloc] init];
     device.deviceID = deviceID;
     device.manufacturer = [self manufacturerForDeviceID:deviceID];
     device.name = [self namePropertyForDeviceID:deviceID];

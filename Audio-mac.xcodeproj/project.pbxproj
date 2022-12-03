@@ -3,15 +3,19 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		8606A55F253EC9D400551D14 /* AudioFileWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8606A55E253EC9D400551D14 /* AudioFileWriter.m */; };
 		8606A563253EC9FD00551D14 /* RZFileUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8606A561253EC9FD00551D14 /* RZFileUtil.m */; };
-		8606A56A253ED26500551D14 /* RZAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8606A569253ED26500551D14 /* RZAudioPlayer.m */; };
-		8606A570253ED27700551D14 /* DbyAudioChannelBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8606A56C253ED27700551D14 /* DbyAudioChannelBuffer.m */; };
 		8606A571253ED27700551D14 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 8606A56F253ED27700551D14 /* TPCircularBuffer.c */; };
+		862F5674293B5D3D00733A80 /* TSAudioSessionUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 862F5668293B5D3C00733A80 /* TSAudioSessionUtil.m */; };
+		862F5675293B5D3D00733A80 /* TSAudioUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 862F566A293B5D3C00733A80 /* TSAudioUtil.m */; };
+		862F5676293B5D3D00733A80 /* TSAudioDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 862F566B293B5D3D00733A80 /* TSAudioDevice.m */; };
+		862F5677293B5D3D00733A80 /* TSAudioChannelBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 862F566E293B5D3D00733A80 /* TSAudioChannelBuffer.m */; };
+		862F5678293B5D3D00733A80 /* TSAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 862F5671293B5D3D00733A80 /* TSAudioRecorder.m */; };
+		862F5679293B5D3D00733A80 /* TSAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 862F5672293B5D3D00733A80 /* TSAudioPlayer.m */; };
 		866DF124253F2A56008B6DFB /* AudioFileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 866DF122253F2A56008B6DFB /* AudioFileReader.m */; };
 		866DF128253F2C15008B6DFB /* senorita.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 866DF127253F2C15008B6DFB /* senorita.mp3 */; };
 		8678C13D2535E7C5003DF95B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C13C2535E7C5003DF95B /* AppDelegate.m */; };
@@ -19,9 +23,6 @@
 		8678C1422535E7C5003DF95B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8678C1412535E7C5003DF95B /* Assets.xcassets */; };
 		8678C1452535E7C5003DF95B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8678C1432535E7C5003DF95B /* Main.storyboard */; };
 		8678C1482535E7C5003DF95B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C1472535E7C5003DF95B /* main.m */; };
-		8678C1542535E813003DF95B /* DbyAudioDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C1502535E813003DF95B /* DbyAudioDevice.m */; };
-		8678C1552535E813003DF95B /* RZAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C1522535E813003DF95B /* RZAudioRecorder.m */; };
-		8678C1592535E825003DF95B /* RZAudioUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C1572535E825003DF95B /* RZAudioUtil.m */; };
 		8678C15D2535EA02003DF95B /* TableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678C15C2535EA02003DF95B /* TableCell.m */; };
 		8678C1612535EA1D003DF95B /* TableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8678C1602535EA1D003DF95B /* TableCell.xib */; };
 		8678C1672535ED77003DF95B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8678C1642535ED77003DF95B /* AudioToolbox.framework */; };
@@ -29,6 +30,7 @@
 		8678C1692535ED77003DF95B /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8678C1662535ED77003DF95B /* CoreAudio.framework */; };
 		8678C16C2535ED96003DF95B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8678C16B2535ED96003DF95B /* AVFoundation.framework */; };
 		86A7B5C4253ED7370053FB5D /* RZPlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A7B5C3253ED7370053FB5D /* RZPlaybackViewController.m */; };
+		86C93495293A290800F49615 /* TSAudioConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C93493293A290800F49615 /* TSAudioConverter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,12 +38,20 @@
 		8606A55E253EC9D400551D14 /* AudioFileWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFileWriter.m; sourceTree = "<group>"; };
 		8606A561253EC9FD00551D14 /* RZFileUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZFileUtil.m; sourceTree = "<group>"; };
 		8606A562253EC9FD00551D14 /* RZFileUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZFileUtil.h; sourceTree = "<group>"; };
-		8606A568253ED26500551D14 /* RZAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZAudioPlayer.h; sourceTree = "<group>"; };
-		8606A569253ED26500551D14 /* RZAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZAudioPlayer.m; sourceTree = "<group>"; };
-		8606A56C253ED27700551D14 /* DbyAudioChannelBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DbyAudioChannelBuffer.m; sourceTree = "<group>"; };
-		8606A56D253ED27700551D14 /* DbyAudioChannelBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DbyAudioChannelBuffer.h; sourceTree = "<group>"; };
 		8606A56E253ED27700551D14 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
 		8606A56F253ED27700551D14 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
+		862F5668293B5D3C00733A80 /* TSAudioSessionUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSAudioSessionUtil.m; sourceTree = "<group>"; };
+		862F5669293B5D3C00733A80 /* TSAudioUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSAudioUtil.h; sourceTree = "<group>"; };
+		862F566A293B5D3C00733A80 /* TSAudioUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSAudioUtil.m; sourceTree = "<group>"; };
+		862F566B293B5D3D00733A80 /* TSAudioDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSAudioDevice.m; sourceTree = "<group>"; };
+		862F566C293B5D3D00733A80 /* TSAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSAudioRecorder.h; sourceTree = "<group>"; };
+		862F566D293B5D3D00733A80 /* TSAudioDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSAudioDevice.h; sourceTree = "<group>"; };
+		862F566E293B5D3D00733A80 /* TSAudioChannelBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSAudioChannelBuffer.m; sourceTree = "<group>"; };
+		862F566F293B5D3D00733A80 /* TSAudioChannelBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSAudioChannelBuffer.h; sourceTree = "<group>"; };
+		862F5670293B5D3D00733A80 /* TSAudioSessionUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSAudioSessionUtil.h; sourceTree = "<group>"; };
+		862F5671293B5D3D00733A80 /* TSAudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSAudioRecorder.m; sourceTree = "<group>"; };
+		862F5672293B5D3D00733A80 /* TSAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSAudioPlayer.m; sourceTree = "<group>"; };
+		862F5673293B5D3D00733A80 /* TSAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSAudioPlayer.h; sourceTree = "<group>"; };
 		866DF122253F2A56008B6DFB /* AudioFileReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFileReader.m; sourceTree = "<group>"; };
 		866DF123253F2A56008B6DFB /* AudioFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFileReader.h; sourceTree = "<group>"; };
 		866DF127253F2C15008B6DFB /* senorita.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = senorita.mp3; sourceTree = "<group>"; };
@@ -55,12 +65,6 @@
 		8678C1462535E7C5003DF95B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8678C1472535E7C5003DF95B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8678C1492535E7C5003DF95B /* Audio_mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Audio_mac.entitlements; sourceTree = "<group>"; };
-		8678C1502535E813003DF95B /* DbyAudioDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DbyAudioDevice.m; sourceTree = "<group>"; };
-		8678C1512535E813003DF95B /* RZAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZAudioRecorder.h; sourceTree = "<group>"; };
-		8678C1522535E813003DF95B /* RZAudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZAudioRecorder.m; sourceTree = "<group>"; };
-		8678C1532535E813003DF95B /* DbyAudioDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DbyAudioDevice.h; sourceTree = "<group>"; };
-		8678C1572535E825003DF95B /* RZAudioUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZAudioUtil.m; sourceTree = "<group>"; };
-		8678C1582535E825003DF95B /* RZAudioUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZAudioUtil.h; sourceTree = "<group>"; };
 		8678C15B2535EA02003DF95B /* TableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableCell.h; sourceTree = "<group>"; };
 		8678C15C2535EA02003DF95B /* TableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableCell.m; sourceTree = "<group>"; };
 		8678C1602535EA1D003DF95B /* TableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableCell.xib; sourceTree = "<group>"; };
@@ -70,6 +74,8 @@
 		8678C16B2535ED96003DF95B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		86A7B5C2253ED7370053FB5D /* RZPlaybackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZPlaybackViewController.h; sourceTree = "<group>"; };
 		86A7B5C3253ED7370053FB5D /* RZPlaybackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZPlaybackViewController.m; sourceTree = "<group>"; };
+		86C93493293A290800F49615 /* TSAudioConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSAudioConverter.m; sourceTree = "<group>"; };
+		86C93494293A290800F49615 /* TSAudioConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSAudioConverter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,8 +96,20 @@
 		8606A565253ED19600551D14 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				8606A56D253ED27700551D14 /* DbyAudioChannelBuffer.h */,
-				8606A56C253ED27700551D14 /* DbyAudioChannelBuffer.m */,
+				86C93494293A290800F49615 /* TSAudioConverter.h */,
+				86C93493293A290800F49615 /* TSAudioConverter.m */,
+				862F566F293B5D3D00733A80 /* TSAudioChannelBuffer.h */,
+				862F566E293B5D3D00733A80 /* TSAudioChannelBuffer.m */,
+				862F566D293B5D3D00733A80 /* TSAudioDevice.h */,
+				862F566B293B5D3D00733A80 /* TSAudioDevice.m */,
+				862F5673293B5D3D00733A80 /* TSAudioPlayer.h */,
+				862F5672293B5D3D00733A80 /* TSAudioPlayer.m */,
+				862F566C293B5D3D00733A80 /* TSAudioRecorder.h */,
+				862F5671293B5D3D00733A80 /* TSAudioRecorder.m */,
+				862F5670293B5D3D00733A80 /* TSAudioSessionUtil.h */,
+				862F5668293B5D3C00733A80 /* TSAudioSessionUtil.m */,
+				862F5669293B5D3C00733A80 /* TSAudioUtil.h */,
+				862F566A293B5D3C00733A80 /* TSAudioUtil.m */,
 				8606A56F253ED27700551D14 /* TPCircularBuffer.c */,
 				8606A56E253ED27700551D14 /* TPCircularBuffer.h */,
 				8606A562253EC9FD00551D14 /* RZFileUtil.h */,
@@ -100,14 +118,6 @@
 				866DF122253F2A56008B6DFB /* AudioFileReader.m */,
 				8606A55D253EC9D400551D14 /* AudioFileWriter.h */,
 				8606A55E253EC9D400551D14 /* AudioFileWriter.m */,
-				8678C1532535E813003DF95B /* DbyAudioDevice.h */,
-				8678C1502535E813003DF95B /* DbyAudioDevice.m */,
-				8606A568253ED26500551D14 /* RZAudioPlayer.h */,
-				8606A569253ED26500551D14 /* RZAudioPlayer.m */,
-				8678C1582535E825003DF95B /* RZAudioUtil.h */,
-				8678C1572535E825003DF95B /* RZAudioUtil.m */,
-				8678C1512535E813003DF95B /* RZAudioRecorder.h */,
-				8678C1522535E813003DF95B /* RZAudioRecorder.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -126,6 +136,7 @@
 				8678C13A2535E7C5003DF95B /* Audio-mac */,
 				8678C1392535E7C5003DF95B /* Products */,
 				8678C1632535ED77003DF95B /* Frameworks */,
+				963DF8796FE9D4D30AC2FC54 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -169,6 +180,13 @@
 				8678C1662535ED77003DF95B /* CoreAudio.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		963DF8796FE9D4D30AC2FC54 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,20 +259,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8678C1542535E813003DF95B /* DbyAudioDevice.m in Sources */,
 				8678C1402535E7C5003DF95B /* ViewController.m in Sources */,
 				8678C1482535E7C5003DF95B /* main.m in Sources */,
+				86C93495293A290800F49615 /* TSAudioConverter.m in Sources */,
 				86A7B5C4253ED7370053FB5D /* RZPlaybackViewController.m in Sources */,
-				8606A56A253ED26500551D14 /* RZAudioPlayer.m in Sources */,
+				862F5677293B5D3D00733A80 /* TSAudioChannelBuffer.m in Sources */,
 				8606A55F253EC9D400551D14 /* AudioFileWriter.m in Sources */,
 				8678C13D2535E7C5003DF95B /* AppDelegate.m in Sources */,
 				866DF124253F2A56008B6DFB /* AudioFileReader.m in Sources */,
 				8606A571253ED27700551D14 /* TPCircularBuffer.c in Sources */,
+				862F5674293B5D3D00733A80 /* TSAudioSessionUtil.m in Sources */,
 				8678C15D2535EA02003DF95B /* TableCell.m in Sources */,
-				8678C1592535E825003DF95B /* RZAudioUtil.m in Sources */,
-				8606A570253ED27700551D14 /* DbyAudioChannelBuffer.m in Sources */,
-				8678C1552535E813003DF95B /* RZAudioRecorder.m in Sources */,
+				862F5679293B5D3D00733A80 /* TSAudioPlayer.m in Sources */,
+				862F5675293B5D3D00733A80 /* TSAudioUtil.m in Sources */,
+				862F5678293B5D3D00733A80 /* TSAudioRecorder.m in Sources */,
 				8606A563253EC9FD00551D14 /* RZFileUtil.m in Sources */,
+				862F5676293B5D3D00733A80 /* TSAudioDevice.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,7 +416,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yxibng.Audio-mac";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -415,7 +435,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yxibng.Audio-mac";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
