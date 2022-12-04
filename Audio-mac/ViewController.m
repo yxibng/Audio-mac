@@ -87,9 +87,6 @@ static uint8_t outputBuffer[outputBufferSize];
     AVAudioFormat *src = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatInt16 sampleRate:48000 channels:1 interleaved:YES];
     AVAudioFormat *dst = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatInt16 sampleRate:16000 channels:1 interleaved:YES];
     _converter = [[TSAudioConverter alloc] initWithSrcFormat: *(src.streamDescription) dstFormat: *(dst.streamDescription) ];
-    
-    
-
 }
 
 

@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TSAudioConverter : NSObject
 
+/*
+ 目前只支持单声道int16类型的采样率转换
+ */
+
+
 - (instancetype)initWithSrcFormat:(AudioStreamBasicDescription)srcFormat
                          dstFormat:(AudioStreamBasicDescription)dstForamt;
 
@@ -32,9 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
                   outputBuffer:(uint8_t *)outputBuffer
                   outputLength:(int32_t *)outputLength
             outputSampleCount:(int32_t *)outputSampleCount;
-
-
-
 
 @end
 

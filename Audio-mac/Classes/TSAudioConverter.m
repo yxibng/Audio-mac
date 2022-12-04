@@ -70,39 +70,64 @@ void writePCM(uint8_t * pcm, int length) {
                   outputLength:(int32_t *)outputLength
             outputSampleCount:(int32_t *)outputSampleCount
 {
-    //计算转换后的采样个数
-    int totalNumbers = ceil(_dstFormat.mSampleRate * srcSampleCount / _srcFormat.mSampleRate);
-    UInt32 ioOutputDataPacketSize = totalNumbers;
-    uint32 outputPacketOffset = 0;
-
     
+    //计算重采样后，应该有多少个采样点
+    UInt32 totalPacketsShoudOutput = ceil(_dstFormat.mSampleRate * srcSampleCount / _srcFormat.mSampleRate);
+    /*
+     调用时，告诉AudioConverterFillComplexBuffer，期待返回多少个重采样后的数据包
+     AudioConverterFillComplexBuffer 返回后，告诉你实际返回了多少个重采样后的数据包
+     */
+    UInt32 ioOutputDataPacketSize = totalPacketsShoudOutput;
+    //目前已经读到了多少个采样后的数据包
+    UInt32 totalPacketsRead = 0;
+    //目前已经获取的长度
+    UInt32 totalSizeRead = 0;
+    
+
     AudioDataModel dataModel;
     dataModel.data = srcData;
     dataModel.offset = 0;
     dataModel.totalsize = srcLength;
-
-    //循环转换
+    
+    //处理的是单声道的pcm，一个包里面就一个采样点
+    const int mDataByteSize = totalPacketsShoudOutput *_dstFormat.mBytesPerPacket;
+    uint8_t *mData = (uint8_t *)malloc(mDataByteSize);
+    
+    AudioBufferList outAudioBufferList;
+    outAudioBufferList.mNumberBuffers = 1;
+    outAudioBufferList.mBuffers[0].mNumberChannels = 1;
+    outAudioBufferList.mBuffers[0].mDataByteSize = mDataByteSize;
+    outAudioBufferList.mBuffers[0].mData = mData;
+    
+    //循环读取重采样后的数据
     OSStatus convertResult = noErr;
     while (convertResult == noErr && dataModel.offset < dataModel.totalsize) {
-        AudioBufferList outAudioBufferList;
-        outAudioBufferList.mNumberBuffers = 1;
-        outAudioBufferList.mBuffers[0].mNumberChannels = 1;
-        outAudioBufferList.mBuffers[0].mDataByteSize = (totalNumbers - outputPacketOffset) * 2;
-        outAudioBufferList.mBuffers[0].mData = outputBuffer + outputPacketOffset * 2;
-        
+        memset(mData, 0, mDataByteSize);
         convertResult = AudioConverterFillComplexBuffer(_converterRef,
                                                         inInputDataProc,
                                                         &dataModel,
                                                         &ioOutputDataPacketSize,
                                                         &outAudioBufferList,
                                                         NULL);
-        NSLog(@"output = %d", ioOutputDataPacketSize);
         if (ioOutputDataPacketSize == 0) {
             break;
         }
-        outputPacketOffset += ioOutputDataPacketSize;
+        UInt32 readSize = outAudioBufferList.mBuffers[0].mDataByteSize;
+        if (totalSizeRead + readSize > outputBufferSize) {
+            //提供的buffe太小了
+            free(mData);
+            return NO;
+        }
+        
+        memcpy(outputBuffer + totalSizeRead, mData, readSize);
+        totalPacketsRead += ioOutputDataPacketSize;
+        totalSizeRead += readSize;
     }
 
+    *outputLength = totalSizeRead;
+    *outputSampleCount = totalPacketsRead;
+    
+    free(mData);
     return YES;
 }
 
